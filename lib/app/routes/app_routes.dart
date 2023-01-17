@@ -7,6 +7,7 @@ abstract class Routes {
   static const REGISTER = _Paths.REGISTER;
   static const IMAGE_PROFILE = _Paths.IMAGE_PROFILE;
   static const DASHBOARD = _Paths.DASHBOARD;
+  static const DASHBOARD_USER = _Paths.DASHBOARD_USER;
   static const PROFILE = _Paths.PROFILE;
   static const ROOM = _Paths.ROOM;
   static const FORMROOM = _Paths.FORMROOM;
@@ -26,7 +27,8 @@ abstract class _Paths {
   static const LOGIN = '/login';
   static const REGISTER = '/register';
   static const IMAGE_PROFILE = '/image-profile';
-  static const DASHBOARD = '/dashboard';
+  static const DASHBOARD = '/dashboard/admin';
+  static const DASHBOARD_USER = '/dashboard/user';
   static const PROFILE = '/profile';
   static const ROOM = '/room';
   static const FORMROOM = '/room/form';

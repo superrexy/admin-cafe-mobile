@@ -44,10 +44,10 @@ class TransactionController extends GetxController {
   Future<void> paidBooking(BookingData data, int id) async {
     try {
       BookingRequest input = BookingRequest(
-        emailPemesan: data.emailPemesan,
-        namaPemesan: data.namaPemesan,
+        emailPemesan: data.emailPemesan!,
+        namaPemesan: data.namaPemesan!,
         isPaid: true,
-        tglPemesanan: data.tglPemesanan,
+        tglPemesanan: data.tglPemesanan!,
         roomId: data.roomId.toString(),
       );
 

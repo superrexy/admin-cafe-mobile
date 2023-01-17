@@ -54,7 +54,7 @@ class CardTransaction extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      item.namaPemesan,
+                      item.namaPemesan!,
                       style: AppTextStyle.mediumStyle.copyWith(
                         color: AppColors.kPrimaryGreen2,
                       ),
@@ -72,7 +72,7 @@ class CardTransaction extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      item.room.nama,
+                      item.room!.nama!,
                       style: AppTextStyle.mediumStyle.copyWith(
                         color: AppColors.kPrimaryGreen2,
                       ),
@@ -90,7 +90,7 @@ class CardTransaction extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      item.tglPemesanan.formatDateToString('dd MMMM yyyy'),
+                      item.tglPemesanan!.formatDateToString('dd MMMM yyyy'),
                       style: AppTextStyle.mediumStyle.copyWith(
                         color: AppColors.kPrimaryGreen2,
                       ),
@@ -108,7 +108,7 @@ class CardTransaction extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      item.total.formatCurrencyIDR(),
+                      item.total!.formatCurrencyIDR(),
                       style: AppTextStyle.mediumStyle.copyWith(
                         color: AppColors.kPrimaryGreen2,
                       ),
@@ -126,10 +126,11 @@ class CardTransaction extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      item.isPaid ? 'Lunas' : 'Belum Lunas',
+                      item.isPaid! ? 'Lunas' : 'Belum Lunas',
                       style: AppTextStyle.mediumStyle.copyWith(
-                        color:
-                            item.isPaid ? AppColors.kPrimaryGreen2 : Colors.red,
+                        color: item.isPaid!
+                            ? AppColors.kPrimaryGreen2
+                            : Colors.red,
                       ),
                     ),
                   ],
@@ -164,7 +165,7 @@ class CardTransaction extends StatelessWidget {
                   ),
                 ),
                 Visibility(
-                  visible: !item.isPaid,
+                  visible: !item.isPaid!,
                   child: Expanded(
                     child: GestureDetector(
                       onTap: onDone,

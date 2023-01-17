@@ -1,23 +1,25 @@
+// To parse this JSON data, do
+//
+//     final profileResponse = profileResponseFromJson(jsonString);
+
 import 'dart:convert';
 
-import 'package:admin_cafe_mobile/app/common/constants.dart';
-
-ProfileResponse profileResponseFromJson(String str) =>
+ProfileResponse? profileResponseFromJson(String str) =>
     ProfileResponse.fromJson(json.decode(str));
 
-String profileResponseToJson(ProfileResponse data) =>
-    json.encode(data.toJson());
+String profileResponseToJson(ProfileResponse? data) =>
+    json.encode(data!.toJson());
 
 class ProfileResponse {
   ProfileResponse({
-    required this.status,
-    required this.message,
-    required this.data,
+    this.status,
+    this.message,
+    this.data,
   });
 
-  bool status;
-  String message;
-  ProfileData data;
+  bool? status;
+  String? message;
+  ProfileData? data;
 
   factory ProfileResponse.fromJson(Map<String, dynamic> json) =>
       ProfileResponse(
@@ -29,34 +31,36 @@ class ProfileResponse {
   Map<String, dynamic> toJson() => {
         "status": status,
         "message": message,
-        "data": data.toJson(),
+        "data": data!.toJson(),
       };
 }
 
 class ProfileData {
   ProfileData({
-    required this.id,
-    required this.firstName,
-    required this.lastName,
-    required this.email,
+    this.id,
+    this.firstName,
+    this.lastName,
+    this.email,
     this.phoneNumber,
     this.address,
     this.imageProfile,
     this.birthDate,
-    required this.createdAt,
-    required this.updatedAt,
+    this.role,
+    this.createdAt,
+    this.updatedAt,
   });
 
-  int id;
-  String firstName;
-  String lastName;
-  String email;
-  String? phoneNumber;
-  String? address;
-  String? imageProfile;
-  DateTime? birthDate;
-  DateTime createdAt;
-  DateTime updatedAt;
+  int? id;
+  String? firstName;
+  dynamic lastName;
+  String? email;
+  dynamic phoneNumber;
+  dynamic address;
+  dynamic imageProfile;
+  dynamic birthDate;
+  String? role;
+  DateTime? createdAt;
+  DateTime? updatedAt;
 
   factory ProfileData.fromJson(Map<String, dynamic> json) => ProfileData(
         id: json["id"],
@@ -65,12 +69,9 @@ class ProfileData {
         email: json["email"],
         phoneNumber: json["phone_number"],
         address: json["address"],
-        imageProfile: json["image_profile"] == null
-            ? null
-            : Constants.baseUrlImage + json["image_profile"],
-        birthDate: json["birth_date"] == null
-            ? null
-            : DateTime.parse(json["birth_date"]),
+        imageProfile: json["image_profile"],
+        birthDate: json["birth_date"],
+        role: json["role"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
       );
@@ -83,8 +84,9 @@ class ProfileData {
         "phone_number": phoneNumber,
         "address": address,
         "image_profile": imageProfile,
-        "birth_date": birthDate?.toIso8601String(),
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
+        "birth_date": birthDate,
+        "role": role,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
       };
 }

@@ -182,23 +182,28 @@ class FormBookingView extends GetView<FormBookingController> {
                         },
                       ),
                       const SizedBox(height: 12.0),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const FormLabel(
-                            label: "Pembayaran Lunas",
-                            isRequired: true,
-                          ),
-                          Obx(
-                            () => Switch(
-                              value: controller.isPaid.value,
-                              activeColor: Colors.green,
-                              onChanged: (bool value) {
-                                controller.isPaid.value = value;
-                              },
+                      Visibility(
+                        visible: controller
+                                .dashboardController.userProfile.value.role ==
+                            "admin",
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const FormLabel(
+                              label: "Pembayaran Lunas",
+                              isRequired: true,
                             ),
-                          ),
-                        ],
+                            Obx(
+                              () => Switch(
+                                value: controller.isPaid.value,
+                                activeColor: Colors.green,
+                                onChanged: (bool value) {
+                                  controller.isPaid.value = value;
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       const SizedBox(height: 12.0),
                       Row(

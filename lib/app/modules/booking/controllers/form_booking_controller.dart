@@ -59,6 +59,16 @@ class FormBookingController extends GetxController {
     totalPrice.value = totalRoomPrice.value + totalFoodPrice.value;
   }
 
+  // Form Init
+  void formInit() {
+    // ignore: prefer_interpolation_to_compose_strings
+    nameController.text = dashboardController.userProfile.value.firstName! +
+        " " +
+        dashboardController.userProfile.value.lastName;
+
+    emailController.text = dashboardController.userProfile.value.email!;
+  }
+
   // Create Booking
   Future<void> onSubmit() async {
     if (bookingFormKey.currentState!.validate()) {
@@ -111,6 +121,11 @@ class FormBookingController extends GetxController {
         foodController.text = tempFoodsChecklist.map((e) => e.nama).join(", ");
       },
     );
+
+    if (dashboardController.userProfile.value.role == "user") {
+      formInit();
+    }
+
     super.onReady();
   }
 

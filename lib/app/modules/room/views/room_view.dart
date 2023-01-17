@@ -84,15 +84,23 @@ class RoomView extends GetView<RoomController> {
                               ),
                             ),
                             const SizedBox(width: 10.0),
-                            Expanded(
-                              child: IntrinsicHeight(
-                                child: FormButton(
-                                  onPressed: () => Get.toNamed(Routes.FORMROOM),
-                                  child: FittedBox(
-                                    child: Text(
-                                      "Tambah Ruangan",
-                                      style: AppTextStyle.mediumStyle.copyWith(
-                                          fontSize: 16, color: Colors.white),
+                            Visibility(
+                              visible: controller.dashboardController
+                                      .userProfile.value.role ==
+                                  "admin",
+                              child: Expanded(
+                                child: IntrinsicHeight(
+                                  child: FormButton(
+                                    onPressed: () =>
+                                        Get.toNamed(Routes.FORMROOM),
+                                    child: FittedBox(
+                                      child: Text(
+                                        "Tambah Ruangan",
+                                        style: AppTextStyle.mediumStyle
+                                            .copyWith(
+                                                fontSize: 16,
+                                                color: Colors.white),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -217,67 +225,82 @@ class RoomView extends GetView<RoomController> {
                                           ),
                                           const SizedBox(height: 10.0),
                                           args?['onSelect'] == null
-                                              ? Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    IconButton(
-                                                      onPressed: () =>
-                                                          Get.toNamed(
-                                                        Routes.FORMROOM,
-                                                        arguments: {
-                                                          'room_id': room.id,
-                                                        },
+                                              ? Visibility(
+                                                  visible: controller
+                                                          .dashboardController
+                                                          .userProfile
+                                                          .value
+                                                          .role ==
+                                                      "admin",
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      IconButton(
+                                                        onPressed: () =>
+                                                            Get.toNamed(
+                                                          Routes.FORMROOM,
+                                                          arguments: {
+                                                            'room_id': room.id,
+                                                          },
+                                                        ),
+                                                        icon: const Icon(
+                                                            Icons.edit_outlined,
+                                                            color:
+                                                                Colors.green),
                                                       ),
-                                                      icon: const Icon(
-                                                          Icons.edit_outlined,
-                                                          color: Colors.green),
-                                                    ),
-                                                    const SizedBox(width: 10.0),
-                                                    IconButton(
-                                                      onPressed: () {
-                                                        Get.dialog(
-                                                          AlertDialog(
-                                                            title: const Text(
-                                                                "Hapus Ruangan"),
-                                                            content: const Text(
-                                                                "Apakah anda yakin ingin menghapus ruangan ini?"),
-                                                            actions: [
-                                                              TextButton(
-                                                                onPressed: () =>
-                                                                    Get.back(),
-                                                                child:
-                                                                    const Text(
-                                                                  "Batal",
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .black),
+                                                      const SizedBox(
+                                                          width: 10.0),
+                                                      IconButton(
+                                                        onPressed: () {
+                                                          Get.dialog(
+                                                            AlertDialog(
+                                                              title: const Text(
+                                                                  "Hapus Ruangan"),
+                                                              content: const Text(
+                                                                  "Apakah anda yakin ingin menghapus ruangan ini?"),
+                                                              actions: [
+                                                                TextButton(
+                                                                  onPressed:
+                                                                      () => Get
+                                                                          .back(),
+                                                                  child:
+                                                                      const Text(
+                                                                    "Batal",
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .black),
+                                                                  ),
                                                                 ),
-                                                              ),
-                                                              TextButton(
-                                                                onPressed: () {
-                                                                  controller
-                                                                      .deleteRoom(
-                                                                          room.id);
-                                                                  Get.close(1);
-                                                                },
-                                                                child:
-                                                                    const Text(
-                                                                  "Hapus",
-                                                                  style: TextStyle(
-                                                                      color: Colors
-                                                                          .red),
+                                                                TextButton(
+                                                                  onPressed:
+                                                                      () {
+                                                                    controller
+                                                                        .deleteRoom(
+                                                                            room.id);
+                                                                    Get.close(
+                                                                        1);
+                                                                  },
+                                                                  child:
+                                                                      const Text(
+                                                                    "Hapus",
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .red),
+                                                                  ),
                                                                 ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        );
-                                                      },
-                                                      icon: const Icon(
-                                                          Icons.delete_outline,
-                                                          color: Colors.red),
-                                                    ),
-                                                  ],
+                                                              ],
+                                                            ),
+                                                          );
+                                                        },
+                                                        icon: const Icon(
+                                                            Icons
+                                                                .delete_outline,
+                                                            color: Colors.red),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 )
                                               : const SizedBox(),
                                         ],
@@ -370,65 +393,75 @@ class RoomView extends GetView<RoomController> {
                                         ),
                                         const SizedBox(height: 10.0),
                                         args?['onSelect'] == null
-                                            ? Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  IconButton(
-                                                    onPressed: () =>
-                                                        Get.toNamed(
-                                                      Routes.FORMROOM,
-                                                      arguments: {
-                                                        'room_id': room.id,
-                                                      },
+                                            ? Visibility(
+                                                visible: controller
+                                                        .dashboardController
+                                                        .userProfile
+                                                        .value
+                                                        .role ==
+                                                    'admin',
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    IconButton(
+                                                      onPressed: () =>
+                                                          Get.toNamed(
+                                                        Routes.FORMROOM,
+                                                        arguments: {
+                                                          'room_id': room.id,
+                                                        },
+                                                      ),
+                                                      icon: const Icon(
+                                                          Icons.edit_outlined,
+                                                          color: Colors.green),
                                                     ),
-                                                    icon: const Icon(
-                                                        Icons.edit_outlined,
-                                                        color: Colors.green),
-                                                  ),
-                                                  const SizedBox(width: 10.0),
-                                                  IconButton(
-                                                    onPressed: () {
-                                                      Get.dialog(
-                                                        AlertDialog(
-                                                          title: const Text(
-                                                              "Hapus Ruangan"),
-                                                          content: const Text(
-                                                              "Apakah anda yakin ingin menghapus ruangan ini?"),
-                                                          actions: [
-                                                            TextButton(
-                                                              onPressed: () =>
-                                                                  Get.back(),
-                                                              child: const Text(
-                                                                "Batal",
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .black),
+                                                    const SizedBox(width: 10.0),
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        Get.dialog(
+                                                          AlertDialog(
+                                                            title: const Text(
+                                                                "Hapus Ruangan"),
+                                                            content: const Text(
+                                                                "Apakah anda yakin ingin menghapus ruangan ini?"),
+                                                            actions: [
+                                                              TextButton(
+                                                                onPressed: () =>
+                                                                    Get.back(),
+                                                                child:
+                                                                    const Text(
+                                                                  "Batal",
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .black),
+                                                                ),
                                                               ),
-                                                            ),
-                                                            TextButton(
-                                                              onPressed: () {
-                                                                controller
-                                                                    .deleteRoom(
-                                                                        room.id);
-                                                                Get.close(1);
-                                                              },
-                                                              child: const Text(
-                                                                "Hapus",
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .red),
+                                                              TextButton(
+                                                                onPressed: () {
+                                                                  controller
+                                                                      .deleteRoom(
+                                                                          room.id);
+                                                                  Get.close(1);
+                                                                },
+                                                                child:
+                                                                    const Text(
+                                                                  "Hapus",
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .red),
+                                                                ),
                                                               ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      );
-                                                    },
-                                                    icon: const Icon(
-                                                        Icons.delete_outline,
-                                                        color: Colors.red),
-                                                  ),
-                                                ],
+                                                            ],
+                                                          ),
+                                                        );
+                                                      },
+                                                      icon: const Icon(
+                                                          Icons.delete_outline,
+                                                          color: Colors.red),
+                                                    ),
+                                                  ],
+                                                ),
                                               )
                                             : const SizedBox(),
                                       ],

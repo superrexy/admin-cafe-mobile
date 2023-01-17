@@ -56,7 +56,7 @@ class RegisterController extends GetxController {
         );
 
         if (res != null) {
-          Storage.saveValue(Constants.token, res.data.token);
+          Storage.saveValue(Constants.token, res.data!.token);
           Get.offAllNamed(Routes.IMAGE_PROFILE);
         }
       } catch (e) {

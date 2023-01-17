@@ -27,7 +27,7 @@ class LoginController extends GetxController {
         );
 
         if (res != null) {
-          Storage.saveValue(Constants.token, res.data.token);
+          Storage.saveValue(Constants.token, res.data!.token);
           Get.offAllNamed(Routes.DASHBOARD);
           Get.snackbar("Success", "Berhasil Login",
               backgroundColor: Colors.green, colorText: Colors.white);

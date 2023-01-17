@@ -21,8 +21,8 @@ class ProfileController extends GetxController {
   final TextEditingController addressController = TextEditingController();
 
   void initTextController() {
-    firstNameController.text = dashboardController.userProfile.value.firstName;
-    lastNameController.text = dashboardController.userProfile.value.lastName;
+    firstNameController.text = dashboardController.userProfile.value.firstName!;
+    lastNameController.text = dashboardController.userProfile.value.lastName!;
     phoneController.text =
         dashboardController.userProfile.value.phoneNumber ?? "";
     addressController.text =

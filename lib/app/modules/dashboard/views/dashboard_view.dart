@@ -20,7 +20,7 @@ class DashboardView extends GetView<DashboardController> {
   Widget build(BuildContext context) {
     return Scaffold(
         key: controller.scaffoldKey,
-        drawer: const Sidebar(),
+        drawer: Sidebar(user: controller.userProfile.value),
         body: Stack(
           children: [
             Container(
@@ -337,7 +337,7 @@ class DashboardView extends GetView<DashboardController> {
                                                 DataCell(Center(
                                                   child: FittedBox(
                                                     child: Text(
-                                                      element.namaPemesan,
+                                                      element.namaPemesan!,
                                                       textAlign:
                                                           TextAlign.center,
                                                     ),
@@ -348,7 +348,7 @@ class DashboardView extends GetView<DashboardController> {
                                                     width: 100,
                                                     child: FittedBox(
                                                       child: Text(
-                                                        element.emailPemesan,
+                                                        element.emailPemesan!,
                                                         textAlign:
                                                             TextAlign.center,
                                                         overflow: TextOverflow
@@ -363,7 +363,7 @@ class DashboardView extends GetView<DashboardController> {
                                                       child: Text(
                                                         timeago.format(
                                                             element
-                                                                .tglPemesanan,
+                                                                .tglPemesanan!,
                                                             locale: 'id'),
                                                         textAlign:
                                                             TextAlign.center,

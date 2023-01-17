@@ -1,63 +1,73 @@
+// To parse this JSON data, do
+//
+//     final bookingResponse = bookingResponseFromJson(jsonString);
+
 import 'dart:convert';
 
-BookingResponse bookingResponseFromJson(String str) =>
+BookingResponse? bookingResponseFromJson(String str) =>
     BookingResponse.fromJson(json.decode(str));
 
-String bookingResponseToJson(BookingResponse data) =>
-    json.encode(data.toJson());
+String bookingResponseToJson(BookingResponse? data) =>
+    json.encode(data!.toJson());
 
 class BookingResponse {
   BookingResponse({
-    required this.status,
-    required this.message,
-    required this.data,
+    this.status,
+    this.message,
+    this.data,
   });
 
-  bool status;
-  String message;
-  List<BookingData> data;
+  bool? status;
+  String? message;
+  List<BookingData?>? data;
 
   factory BookingResponse.fromJson(Map<String, dynamic> json) =>
       BookingResponse(
         status: json["status"],
         message: json["message"],
-        data: List<BookingData>.from(
-            json["data"].map((x) => BookingData.fromJson(x))),
+        data: json["data"] == null
+            ? []
+            : List<BookingData?>.from(
+                json["data"]!.map((x) => BookingData.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "status": status,
         "message": message,
-        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "data": data == null
+            ? []
+            : List<dynamic>.from(data!.map((x) => x!.toJson())),
       };
 }
 
 class BookingData {
   BookingData({
-    required this.id,
-    required this.namaPemesan,
-    required this.emailPemesan,
-    required this.tglPemesanan,
-    required this.total,
-    required this.isPaid,
-    required this.roomId,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.bookingFood,
-    required this.room,
+    this.id,
+    this.namaPemesan,
+    this.emailPemesan,
+    this.tglPemesanan,
+    this.total,
+    this.isPaid,
+    this.roomId,
+    this.userId,
+    this.createdAt,
+    this.updatedAt,
+    this.bookingFood,
+    this.room,
   });
 
-  int id;
-  String namaPemesan;
-  String emailPemesan;
-  DateTime tglPemesanan;
-  int total;
-  bool isPaid;
-  int roomId;
-  DateTime createdAt;
-  DateTime updatedAt;
-  List<BookingFood> bookingFood;
-  Room room;
+  int? id;
+  String? namaPemesan;
+  String? emailPemesan;
+  DateTime? tglPemesanan;
+  int? total;
+  bool? isPaid;
+  int? roomId;
+  int? userId;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  List<BookingFood?>? bookingFood;
+  Room? room;
 
   factory BookingData.fromJson(Map<String, dynamic> json) => BookingData(
         id: json["id"],
@@ -67,10 +77,13 @@ class BookingData {
         total: json["total"],
         isPaid: json["is_paid"],
         roomId: json["room_id"],
+        userId: json["user_id"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
-        bookingFood: List<BookingFood>.from(
-            json["booking_food"].map((x) => BookingFood.fromJson(x))),
+        bookingFood: json["booking_food"] == null
+            ? []
+            : List<BookingFood?>.from(
+                json["booking_food"]!.map((x) => BookingFood.fromJson(x))),
         room: Room.fromJson(json["room"]),
       );
 
@@ -78,40 +91,43 @@ class BookingData {
         "id": id,
         "nama_pemesan": namaPemesan,
         "email_pemesan": emailPemesan,
-        "tgl_pemesanan": tglPemesanan.toIso8601String(),
+        "tgl_pemesanan": tglPemesanan?.toIso8601String(),
         "total": total,
         "is_paid": isPaid,
         "room_id": roomId,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
-        "booking_food": List<dynamic>.from(bookingFood.map((x) => x.toJson())),
-        "room": room.toJson(),
+        "user_id": userId,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+        "booking_food": bookingFood == null
+            ? []
+            : List<dynamic>.from(bookingFood!.map((x) => x!.toJson())),
+        "room": room!.toJson(),
       };
 }
 
 class BookingFood {
   BookingFood({
-    required this.bookingId,
-    required this.foodDrinkId,
-    required this.amount,
-    required this.total,
+    this.bookingId,
+    this.foodDrinkId,
+    this.amount,
     this.note,
-    required this.foodDrink,
+    this.total,
+    this.foodDrink,
   });
 
-  int bookingId;
-  int foodDrinkId;
-  int amount;
-  int total;
-  String? note;
-  FoodDrink foodDrink;
+  int? bookingId;
+  int? foodDrinkId;
+  int? amount;
+  dynamic note;
+  int? total;
+  FoodDrink? foodDrink;
 
   factory BookingFood.fromJson(Map<String, dynamic> json) => BookingFood(
         bookingId: json["booking_id"],
         foodDrinkId: json["food_drink_id"],
         amount: json["amount"],
-        total: json["total"],
         note: json["note"],
+        total: json["total"],
         foodDrink: FoodDrink.fromJson(json["food_drink"]),
       );
 
@@ -119,30 +135,30 @@ class BookingFood {
         "booking_id": bookingId,
         "food_drink_id": foodDrinkId,
         "amount": amount,
-        "total": total,
         "note": note,
-        "food_drink": foodDrink.toJson(),
+        "total": total,
+        "food_drink": foodDrink!.toJson(),
       };
 }
 
 class FoodDrink {
   FoodDrink({
-    required this.id,
-    required this.nama,
-    required this.harga,
-    required this.deskripsi,
-    required this.image,
-    required this.createdAt,
-    required this.updatedAt,
+    this.id,
+    this.nama,
+    this.harga,
+    this.deskripsi,
+    this.image,
+    this.createdAt,
+    this.updatedAt,
   });
 
-  int id;
-  String nama;
-  int harga;
-  String deskripsi;
-  String image;
-  DateTime createdAt;
-  DateTime updatedAt;
+  int? id;
+  String? nama;
+  int? harga;
+  String? deskripsi;
+  String? image;
+  DateTime? createdAt;
+  DateTime? updatedAt;
 
   factory FoodDrink.fromJson(Map<String, dynamic> json) => FoodDrink(
         id: json["id"],
@@ -160,33 +176,33 @@ class FoodDrink {
         "harga": harga,
         "deskripsi": deskripsi,
         "image": image,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
       };
 }
 
 class Room {
   Room({
-    required this.id,
-    required this.nama,
-    required this.fasilitas,
-    required this.kapasitas,
-    required this.waktu,
-    required this.harga,
-    required this.image,
-    required this.createdAt,
-    required this.updatedAt,
+    this.id,
+    this.nama,
+    this.fasilitas,
+    this.kapasitas,
+    this.waktu,
+    this.harga,
+    this.image,
+    this.createdAt,
+    this.updatedAt,
   });
 
-  int id;
-  String nama;
-  String fasilitas;
-  String kapasitas;
-  String waktu;
-  int harga;
-  String image;
-  DateTime createdAt;
-  DateTime updatedAt;
+  int? id;
+  String? nama;
+  String? fasilitas;
+  String? kapasitas;
+  String? waktu;
+  int? harga;
+  String? image;
+  DateTime? createdAt;
+  DateTime? updatedAt;
 
   factory Room.fromJson(Map<String, dynamic> json) => Room(
         id: json["id"],
@@ -208,7 +224,7 @@ class Room {
         "waktu": waktu,
         "harga": harga,
         "image": image,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
       };
 }

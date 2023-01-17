@@ -123,19 +123,19 @@ class BookingView extends GetView<BookingController> {
                                             CrossAxisAlignment.center,
                                         children: [
                                           Text(
-                                            item.tglPemesanan
+                                            item.tglPemesanan!
                                                 .formatDateToString('yyyy'),
                                             style: AppTextStyle.regularStyle
                                                 .copyWith(fontSize: 10),
                                           ),
                                           Text(
-                                            item.tglPemesanan
+                                            item.tglPemesanan!
                                                 .formatDateToString('dd'),
                                             style: AppTextStyle.heading2
                                                 .copyWith(fontSize: 14),
                                           ),
                                           Text(
-                                            item.tglPemesanan
+                                            item.tglPemesanan!
                                                 .formatDateToString('MMM'),
                                             style: AppTextStyle.regularStyle
                                                 .copyWith(fontSize: 10),
@@ -156,7 +156,7 @@ class BookingView extends GetView<BookingController> {
                                           ),
                                           FittedBox(
                                             child: Text(
-                                              item.namaPemesan,
+                                              item.namaPemesan!,
                                               style: AppTextStyle.heading2
                                                   .copyWith(
                                                 fontSize: 14,
@@ -165,7 +165,7 @@ class BookingView extends GetView<BookingController> {
                                           ),
                                           FittedBox(
                                             child: Text(
-                                              item.emailPemesan,
+                                              item.emailPemesan!,
                                               style: AppTextStyle.regularStyle
                                                   .copyWith(fontSize: 10),
                                             ),
@@ -187,7 +187,7 @@ class BookingView extends GetView<BookingController> {
                                           ),
                                           FittedBox(
                                             child: Text(
-                                              item.total.formatCurrencyIDR(),
+                                              item.total!.formatCurrencyIDR(),
                                               style: AppTextStyle.boldStyle
                                                   .copyWith(fontSize: 14),
                                             ),
@@ -209,13 +209,13 @@ class BookingView extends GetView<BookingController> {
                                           ),
                                           FittedBox(
                                             child: Text(
-                                              item.isPaid
+                                              item.isPaid!
                                                   ? "Lunas"
                                                   : "Belum Dibayar",
                                               style: AppTextStyle.boldStyle
                                                   .copyWith(
                                                       fontSize: 12,
-                                                      color: item.isPaid
+                                                      color: item.isPaid!
                                                           ? Colors.green
                                                           : Colors.red),
                                             ),

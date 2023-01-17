@@ -1,23 +1,25 @@
+// To parse this JSON data, do
+//
+//     final loginRegisterResponse = loginRegisterResponseFromJson(jsonString);
+
 import 'dart:convert';
 
-// ignore_for_file: unnecessary_null_in_if_null_operators
-
-LoginRegisterResponse loginRegisterResponseFromJson(String str) =>
+LoginRegisterResponse? loginRegisterResponseFromJson(String str) =>
     LoginRegisterResponse.fromJson(json.decode(str));
 
-String loginRegisterResponseToJson(LoginRegisterResponse data) =>
-    json.encode(data.toJson());
+String loginRegisterResponseToJson(LoginRegisterResponse? data) =>
+    json.encode(data!.toJson());
 
 class LoginRegisterResponse {
   LoginRegisterResponse({
-    required this.status,
-    required this.message,
-    required this.data,
+    this.status,
+    this.message,
+    this.data,
   });
 
-  bool status;
-  String message;
-  Data data;
+  bool? status;
+  String? message;
+  Data? data;
 
   factory LoginRegisterResponse.fromJson(Map<String, dynamic> json) =>
       LoginRegisterResponse(
@@ -29,18 +31,18 @@ class LoginRegisterResponse {
   Map<String, dynamic> toJson() => {
         "status": status,
         "message": message,
-        "data": data.toJson(),
+        "data": data!.toJson(),
       };
 }
 
 class Data {
   Data({
-    required this.user,
-    required this.token,
+    this.user,
+    this.token,
   });
 
-  User user;
-  String token;
+  User? user;
+  String? token;
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         user: User.fromJson(json["user"]),
@@ -48,47 +50,48 @@ class Data {
       );
 
   Map<String, dynamic> toJson() => {
-        "user": user.toJson(),
+        "user": user!.toJson(),
         "token": token,
       };
 }
 
 class User {
   User({
-    required this.id,
-    required this.firstName,
-    required this.lastName,
-    required this.email,
+    this.id,
+    this.firstName,
+    this.lastName,
+    this.email,
     this.phoneNumber,
     this.address,
     this.imageProfile,
     this.birthDate,
-    required this.createdAt,
-    required this.updatedAt,
+    this.role,
+    this.createdAt,
+    this.updatedAt,
   });
 
-  int id;
-  String firstName;
-  String lastName;
-  String email;
-  String? phoneNumber;
-  String? address;
-  String? imageProfile;
-  DateTime? birthDate;
-  DateTime createdAt;
-  DateTime updatedAt;
+  int? id;
+  String? firstName;
+  dynamic lastName;
+  String? email;
+  dynamic phoneNumber;
+  dynamic address;
+  dynamic imageProfile;
+  dynamic birthDate;
+  String? role;
+  DateTime? createdAt;
+  DateTime? updatedAt;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         id: json["id"],
         firstName: json["first_name"],
         lastName: json["last_name"],
         email: json["email"],
-        phoneNumber: json["phone_number"] ?? null,
-        address: json["address"] ?? null,
-        imageProfile: json["image_profile"] ?? null,
-        birthDate: json["birth_date"] == null
-            ? null
-            : DateTime.parse(json["birth_date"]),
+        phoneNumber: json["phone_number"],
+        address: json["address"],
+        imageProfile: json["image_profile"],
+        birthDate: json["birth_date"],
+        role: json["role"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
       );
@@ -101,8 +104,9 @@ class User {
         "phone_number": phoneNumber,
         "address": address,
         "image_profile": imageProfile,
-        "birth_date": birthDate?.toIso8601String(),
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
+        "birth_date": birthDate,
+        "role": role,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
       };
 }

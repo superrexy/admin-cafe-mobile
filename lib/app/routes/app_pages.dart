@@ -1,3 +1,4 @@
+import 'package:admin_cafe_mobile/app/modules/dashboard/views/dashboard_user_view.dart';
 import 'package:admin_cafe_mobile/app/modules/reset_password/views/change_password_reset_view.dart';
 import 'package:admin_cafe_mobile/app/modules/reset_password/views/verify_token_password_reset_view.dart';
 import 'package:get/get.dart';
@@ -54,6 +55,11 @@ class AppPages {
     GetPage(
       name: _Paths.DASHBOARD,
       page: () => const DashboardView(),
+      binding: DashboardBinding(),
+    ),
+    GetPage(
+      name: _Paths.DASHBOARD_USER,
+      page: () => const DashboardUserView(),
       binding: DashboardBinding(),
     ),
     GetPage(

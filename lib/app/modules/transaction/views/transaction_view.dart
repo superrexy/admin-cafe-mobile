@@ -45,9 +45,9 @@ class TransactionView extends GetView<TransactionController> {
                           return CardTransaction(
                             item: booking,
                             onDelete: () =>
-                                controller.deleteBooking(booking.id),
+                                controller.deleteBooking(booking.id!),
                             onDone: () {
-                              controller.paidBooking(booking, booking.id);
+                              controller.paidBooking(booking, booking.id!);
                             },
                           );
                         },

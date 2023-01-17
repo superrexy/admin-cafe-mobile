@@ -23,18 +23,7 @@ class DashboardController extends GetxController {
 
   var scaffoldKey = GlobalKey<ScaffoldState>();
 
-  final userProfile = ProfileData(
-    id: 0,
-    firstName: '',
-    lastName: '',
-    email: '',
-    address: null,
-    birthDate: null,
-    imageProfile: null,
-    phoneNumber: null,
-    createdAt: DateTime.now(),
-    updatedAt: DateTime.now(),
-  ).obs;
+  final userProfile = ProfileData().obs;
 
   final statisticData =
       DashboardData(pegawaiCount: 0, roomCount: 0, bookingCount: 0).obs;
@@ -45,24 +34,29 @@ class DashboardController extends GetxController {
     scaffoldKey.currentState!.openDrawer();
   }
 
-  void getProfileUser() async {
+  Future<ProfileResponse?> getProfileUser() async {
     try {
       final res = await _authenticationProvider.profileUser();
 
       if (res != null) {
         userProfile.update((val) {
-          val!.id = res.data.id;
-          val.firstName = res.data.firstName;
-          val.lastName = res.data.lastName;
-          val.email = res.data.email;
-          val.address = res.data.address;
-          val.birthDate = res.data.birthDate;
-          val.imageProfile = res.data.imageProfile;
-          val.phoneNumber = res.data.phoneNumber;
-          val.createdAt = res.data.createdAt;
-          val.updatedAt = res.data.updatedAt;
+          val!.id = res.data?.id;
+          val.firstName = res.data?.firstName;
+          val.lastName = res.data?.lastName;
+          val.email = res.data?.email;
+          val.phoneNumber = res.data?.phoneNumber;
+          val.address = res.data?.address;
+          val.imageProfile = res.data?.imageProfile;
+          val.birthDate = res.data?.birthDate;
+          val.role = res.data?.role;
+          val.createdAt = res.data?.createdAt;
+          val.updatedAt = res.data?.updatedAt;
         });
+
+        return res;
       }
+
+      return null;
     } catch (e) {
       print(e);
     }

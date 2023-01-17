@@ -1,3 +1,4 @@
+import 'package:admin_cafe_mobile/app/modules/dashboard/controllers/dashboard_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -10,6 +11,7 @@ import 'package:admin_cafe_mobile/app/modules/booking/controllers/form_booking_c
 class FoodndrinkController extends GetxController {
   // FORM BOOKING CONTROLLER
   final FormBookingController formBookingController = Get.find();
+  final DashboardController dashboardController = Get.find();
 
   // API CLIENT
   final FoodnDrinkProvier _foodnDrinkProvier =

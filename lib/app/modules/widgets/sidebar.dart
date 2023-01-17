@@ -1,3 +1,4 @@
+import 'package:admin_cafe_mobile/app/model/response/profile_response.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -11,7 +12,8 @@ import 'package:admin_cafe_mobile/app/modules/widgets/widgets.dart';
 import 'package:admin_cafe_mobile/app/routes/app_pages.dart';
 
 class Sidebar extends StatelessWidget {
-  const Sidebar({super.key});
+  const Sidebar({super.key, required this.user});
+  final ProfileData user;
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +69,7 @@ class Sidebar extends StatelessWidget {
             onTap: () => Get.toNamed(Routes.FOODNDRINK),
           ),
           SidebarItem(
+            isVisible: user.role == "admin" ? true : false,
             imagePath: AppImages.icTransaksi,
             title: "Data Transaksi",
             onTap: () => Get.toNamed(Routes.TRANSACTION),
