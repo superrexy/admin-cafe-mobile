@@ -28,7 +28,12 @@ class LoginController extends GetxController {
 
         if (res != null) {
           Storage.saveValue(Constants.token, res.data!.token);
-          Get.offAllNamed(Routes.DASHBOARD);
+          if (res.data!.user?.role == "admin") {
+            Get.offAllNamed(Routes.DASHBOARD);
+          } else {
+            Get.offAllNamed(Routes.DASHBOARD_USER);
+          }
+
           Get.snackbar("Success", "Berhasil Login",
               backgroundColor: Colors.green, colorText: Colors.white);
         }

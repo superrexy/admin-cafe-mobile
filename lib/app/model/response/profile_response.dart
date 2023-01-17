@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:admin_cafe_mobile/app/common/constants.dart';
+
 ProfileResponse? profileResponseFromJson(String str) =>
     ProfileResponse.fromJson(json.decode(str));
 
@@ -69,7 +71,9 @@ class ProfileData {
         email: json["email"],
         phoneNumber: json["phone_number"],
         address: json["address"],
-        imageProfile: json["image_profile"],
+        imageProfile: json["image_profile"] == null
+            ? null
+            : Constants.baseUrlImage + json["image_profile"],
         birthDate: json["birth_date"],
         role: json["role"],
         createdAt: DateTime.parse(json["created_at"]),

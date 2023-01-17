@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.admincafe.admin_cafe_mobile">
    <application
-        android:label="Admin Cafe Mobile"
+        android:label="QSpace"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

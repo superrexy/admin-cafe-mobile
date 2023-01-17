@@ -41,7 +41,7 @@ class ImageProfileController extends GetxController {
           "Berhasil mengubah foto profil",
         );
 
-        Get.offAllNamed(Routes.DASHBOARD);
+        Get.offAllNamed(Routes.DASHBOARD_USER);
       }
     } catch (e) {
       print("ERROR");

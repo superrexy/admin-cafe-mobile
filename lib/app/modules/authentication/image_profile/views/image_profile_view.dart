@@ -121,7 +121,7 @@ class ImageProfileView extends GetView<ImageProfileController> {
                   height: 8,
                 ),
                 TextButton(
-                  onPressed: () => Get.offAllNamed(Routes.DASHBOARD),
+                  onPressed: () => Get.offAllNamed(Routes.DASHBOARD_USER),
                   style: TextButton.styleFrom(
                     padding: EdgeInsets.zero,
                     minimumSize: const Size(50, 30),
