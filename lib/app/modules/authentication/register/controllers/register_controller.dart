@@ -11,6 +11,9 @@ import 'package:admin_cafe_mobile/app/routes/app_pages.dart';
 import '../../../dashboard/controllers/dashboard_controller.dart';
 
 class RegisterController extends GetxController {
+  // DASHBOARD CONTROLLER
+  final DashboardController dashboardController = Get.find();
+
   // API CLIENT
   final AuthenticationProvider _authenticationProvider =
       AuthenticationProvider(ApiClient.init());
@@ -59,6 +62,7 @@ class RegisterController extends GetxController {
 
         if (res != null) {
           Storage.saveValue(Constants.token, res.data!.token);
+          await dashboardController.getAllData();
           Get.offAllNamed(Routes.IMAGE_PROFILE);
         }
       } catch (e) {
