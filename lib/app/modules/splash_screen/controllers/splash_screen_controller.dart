@@ -12,7 +12,7 @@ class SplashScreenController extends GetxController {
   Future<void> redirectPage() async {
     await Future.delayed(const Duration(seconds: 5));
     final token = Storage.hasData(Constants.token);
-    if (token) {
+    if (token != null && token) {
       final response = await dashboardController.getProfileUser();
 
       if (response != null) {
@@ -24,7 +24,10 @@ class SplashScreenController extends GetxController {
       } else {
         Get.offNamed(Routes.LOGIN);
       }
+
+      Get.delete<DashboardController>();
     } else {
+      Get.delete<DashboardController>();
       Get.offNamed(Routes.LOGIN);
     }
   }

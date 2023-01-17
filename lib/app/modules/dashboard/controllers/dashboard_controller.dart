@@ -118,10 +118,7 @@ class DashboardController extends GetxController {
 
   @override
   void onReady() {
-    if (Get.currentRoute == Routes.DASHBOARD ||
-        Get.currentRoute == Routes.DASHBOARD_USER) {
-      getAllData();
-    }
+    getAllData();
     super.onReady();
   }
 

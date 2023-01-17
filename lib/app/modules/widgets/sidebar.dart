@@ -92,7 +92,6 @@ class Sidebar extends StatelessWidget {
                       onPressed: () {
                         Get.back();
                         Get.offAllNamed(Routes.LOGIN);
-                        Get.delete<DashboardController>();
                         Storage.removeValue(Constants.token);
                       },
                       child: Text("Ya"),

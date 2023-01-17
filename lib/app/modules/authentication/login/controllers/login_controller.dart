@@ -8,12 +8,7 @@ import 'package:admin_cafe_mobile/app/data/data.dart';
 import 'package:admin_cafe_mobile/app/model/request/login_request.dart';
 import 'package:admin_cafe_mobile/app/routes/app_pages.dart';
 
-import '../../../dashboard/controllers/dashboard_controller.dart';
-
 class LoginController extends GetxController {
-  // DASHBOARD CONTROLLER
-  final DashboardController dashboardController = Get.find();
-
   // API CLIENT
   final AuthenticationProvider _authenticationProvider =
       AuthenticationProvider(ApiClient.init());
@@ -33,7 +28,6 @@ class LoginController extends GetxController {
 
         if (res != null) {
           Storage.saveValue(Constants.token, res.data!.token);
-          await dashboardController.getAllData();
 
           if (res.data!.user?.role == "admin") {
             Get.offAllNamed(Routes.DASHBOARD);
