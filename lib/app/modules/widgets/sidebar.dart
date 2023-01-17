@@ -1,4 +1,5 @@
 import 'package:admin_cafe_mobile/app/model/response/profile_response.dart';
+import 'package:admin_cafe_mobile/app/modules/dashboard/controllers/dashboard_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -91,6 +92,7 @@ class Sidebar extends StatelessWidget {
                       onPressed: () {
                         Get.back();
                         Get.offAllNamed(Routes.LOGIN);
+                        Get.delete<DashboardController>();
                         Storage.removeValue(Constants.token);
                       },
                       child: Text("Ya"),

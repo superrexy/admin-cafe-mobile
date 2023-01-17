@@ -8,6 +8,8 @@ import 'package:admin_cafe_mobile/app/data/data.dart';
 import 'package:admin_cafe_mobile/app/model/request/login_request.dart';
 import 'package:admin_cafe_mobile/app/routes/app_pages.dart';
 
+import '../../../dashboard/controllers/dashboard_controller.dart';
+
 class LoginController extends GetxController {
   // API CLIENT
   final AuthenticationProvider _authenticationProvider =
