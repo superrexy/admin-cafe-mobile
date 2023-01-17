@@ -1,3 +1,4 @@
+import 'package:admin_cafe_mobile/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -117,7 +118,10 @@ class DashboardController extends GetxController {
 
   @override
   void onReady() {
-    getAllData();
+    if (Get.currentRoute == Routes.DASHBOARD ||
+        Get.currentRoute == Routes.DASHBOARD_USER) {
+      getAllData();
+    }
     super.onReady();
   }
 

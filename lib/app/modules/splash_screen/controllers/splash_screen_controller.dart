@@ -10,7 +10,7 @@ class SplashScreenController extends GetxController {
   final DashboardController dashboardController = Get.find();
 
   Future<void> redirectPage() async {
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 5));
     final token = Storage.hasData(Constants.token);
     if (token) {
       final response = await dashboardController.getProfileUser();
