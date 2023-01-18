@@ -56,8 +56,8 @@ class BannerView extends GetView<BannerController> {
                       child: Stack(
                         children: [
                           SizedBox(
-                            height: 200.0,
-                            width: 200.0,
+                            height: Get.height,
+                            width: Get.width,
                             child: Image.network(
                               controller.bannersData[index].image,
                               fit: BoxFit.cover,
