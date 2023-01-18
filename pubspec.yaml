@@ -7,6 +7,7 @@ environment:
 
 dependencies:
   cached_network_image: ^3.2.3
+  carousel_slider: ^4.2.1
   cupertino_icons: ^1.0.2
   date_time_picker: ^2.1.0
   dio: ^4.0.6

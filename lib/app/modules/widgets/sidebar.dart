@@ -76,6 +76,12 @@ class Sidebar extends StatelessWidget {
             onTap: () => Get.toNamed(Routes.TRANSACTION),
           ),
           SidebarItem(
+            isVisible: user.role == "admin" ? true : false,
+            imagePath: AppImages.icBanner,
+            title: "Banner",
+            onTap: () => Get.toNamed(Routes.BANNER),
+          ),
+          SidebarItem(
             imagePath: AppImages.icLogout,
             title: "Keluar",
             onTap: () {

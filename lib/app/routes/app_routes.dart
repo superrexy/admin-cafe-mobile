@@ -10,6 +10,8 @@ abstract class Routes {
   static const DASHBOARD_USER = _Paths.DASHBOARD_USER;
   static const PROFILE = _Paths.PROFILE;
   static const ROOM = _Paths.ROOM;
+  static const BANNER = _Paths.BANNER;
+  static const FORMBANNER = _Paths.FORMBANNER;
   static const FORMROOM = _Paths.FORMROOM;
   static const FOODNDRINK = _Paths.FOODNDRINK;
   static const FORMFOODNDRINK = _Paths.FORMFOODNDRINK;
@@ -31,6 +33,8 @@ abstract class _Paths {
   static const DASHBOARD_USER = '/dashboard/user';
   static const PROFILE = '/profile';
   static const ROOM = '/room';
+  static const BANNER = '/banner';
+  static const FORMBANNER = '/banner/form';
   static const FORMROOM = '/room/form';
   static const FOODNDRINK = '/foodndrink';
   static const FORMFOODNDRINK = '/foodndrink/form';

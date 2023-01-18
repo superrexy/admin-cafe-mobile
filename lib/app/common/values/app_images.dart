@@ -9,6 +9,7 @@ abstract class AppImages {
   static const String icRuangan2 = 'assets/images/ic_ruangan-sidebar.png';
   static const String icRuangan = 'assets/images/ic_ruangan.png';
   static const String icTransaksi = 'assets/images/ic_transaksi-sidebar.png';
+  static const String icBanner = 'assets/images/ic_banner.png';
   static const String imgIceCream = 'assets/images/img_icecream.png';
   static const String imgUser = 'assets/images/img_user.png';
   static const String imgRoomMeeting = 'assets/images/img_room_meeting.png';

@@ -1,14 +1,13 @@
-import 'package:admin_cafe_mobile/app/routes/app_pages.dart';
-import 'package:flutter/material.dart';
-
-import 'package:get/get.dart';
-
+import 'package:admin_cafe_mobile/app/data/banner_provider.dart';
 import 'package:admin_cafe_mobile/app/data/booking_provider.dart';
 import 'package:admin_cafe_mobile/app/data/dashboard_provider.dart';
 import 'package:admin_cafe_mobile/app/data/data.dart';
+import 'package:admin_cafe_mobile/app/model/response/banner_response.dart';
 import 'package:admin_cafe_mobile/app/model/response/booking_response.dart';
 import 'package:admin_cafe_mobile/app/model/response/dashboard_response.dart';
 import 'package:admin_cafe_mobile/app/model/response/profile_response.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class DashboardController extends GetxController {
   // API CLIENT
@@ -17,6 +16,7 @@ class DashboardController extends GetxController {
   final DashboardProvider _dashboardProvider =
       DashboardProvider(ApiClient.init());
   final BookingProvider _bookingProvider = BookingProvider(ApiClient.init());
+  final BannerProvider _bannerProvider = BannerProvider(ApiClient.init());
 
   final selectedDate = DateTime.now().obs;
   final DateTime firstDate = DateTime.now().subtract(const Duration(days: 45));
@@ -30,6 +30,8 @@ class DashboardController extends GetxController {
       DashboardData(pegawaiCount: 0, roomCount: 0, bookingCount: 0).obs;
 
   final bookingData = <BookingData>[].obs;
+
+  final bannersData = <BannerData>[].obs;
 
   void openDrawer() {
     scaffoldKey.currentState!.openDrawer();
@@ -105,8 +107,20 @@ class DashboardController extends GetxController {
     }
   }
 
+  Future<void> getBannersData() async {
+    try {
+      final response = await _bannerProvider.getBanners();
+      if (response != null) {
+        bannersData.assignAll(response);
+      }
+    } catch (e) {
+      Get.printError(info: e.toString());
+    }
+  }
+
   Future<void> getAllData() async {
     getProfileUser();
+    await getBannersData();
     await getStaticticDashboard();
     await getBookingsData();
   }

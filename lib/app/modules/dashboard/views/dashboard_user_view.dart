@@ -3,6 +3,7 @@ import 'package:admin_cafe_mobile/app/modules/dashboard/controllers/dashboard_co
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 import '../../../common/values/app_colors.dart';
 import '../../../common/values/app_images.dart';
@@ -79,6 +80,34 @@ class DashboardUserView extends GetView<DashboardController> {
                       ],
                     ),
                   ],
+                ),
+                const SizedBox(height: 16.0),
+                Obx(
+                  () => Visibility(
+                    visible: controller.bannersData.isNotEmpty,
+                    child: CarouselSlider(
+                      options: CarouselOptions(
+                        height: Get.height * 0.25,
+                        autoPlay: true,
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        enlargeCenterPage: true,
+                        scrollDirection: Axis.horizontal,
+                      ),
+                      items: controller.bannersData
+                          .map(
+                            (element) => ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.network(
+                                element.image,
+                                fit: BoxFit.cover,
+                                width: Get.width,
+                                alignment: Alignment.center,
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ),
                 ),
                 const SizedBox(height: 16.0),
                 Obx(

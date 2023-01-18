@@ -1,3 +1,6 @@
+import 'package:admin_cafe_mobile/app/modules/banner/bindings/banner_binding.dart';
+import 'package:admin_cafe_mobile/app/modules/banner/views/banner_view.dart';
+import 'package:admin_cafe_mobile/app/modules/banner/views/form_banner_view.dart';
 import 'package:admin_cafe_mobile/app/modules/dashboard/views/dashboard_user_view.dart';
 import 'package:admin_cafe_mobile/app/modules/reset_password/views/change_password_reset_view.dart';
 import 'package:admin_cafe_mobile/app/modules/reset_password/views/verify_token_password_reset_view.dart';
@@ -71,6 +74,16 @@ class AppPages {
       name: _Paths.ROOM,
       page: () => const RoomView(),
       binding: RoomBinding(),
+    ),
+    GetPage(
+      name: _Paths.BANNER,
+      page: () => const BannerView(),
+      binding: BannerBinding(),
+    ),
+    GetPage(
+      name: _Paths.FORMBANNER,
+      page: () => const FormBannerView(),
+      binding: BannerBinding(),
     ),
     GetPage(
       name: _Paths.FORMROOM,
