@@ -236,7 +236,7 @@ class PaymentFailedView extends GetView<PaymentCheckController> {
             ),
           ),
           child: Text(
-            args['payment_url'] ? "Coba Lagi" : "Kembali ke Beranda",
+            args['payment_url'] != "" ? "Coba Lagi" : "Kembali ke Beranda",
             style: AppTextStyle.body.copyWith(
               fontSize: 18,
               color: Colors.white,

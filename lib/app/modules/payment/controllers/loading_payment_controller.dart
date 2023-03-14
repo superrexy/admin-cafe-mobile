@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:admin_cafe_mobile/app/common/constants.dart';
 import 'package:admin_cafe_mobile/app/routes/app_pages.dart';
 import 'package:get/get.dart';
@@ -6,7 +8,9 @@ import 'package:socket_io_client/socket_io_client.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LoadingPaymentController extends GetxController {
-  final arguments = Get.arguments;
+  Map<String, dynamic> arguments = Get.arguments;
+  bool isPaymentSuccess = false;
+
   IO.Socket socket = IO.io(Constants.baseUrl,
       OptionBuilder().setTransports(['websocket']).enableAutoConnect().build());
 
@@ -32,6 +36,8 @@ class LoadingPaymentController extends GetxController {
 
     socket.on("booking_${arguments["booking_id"]}", (data) {
       if (data["status"] == "success") {
+        isPaymentSuccess = true;
+
         Get.offNamed(Routes.PAYMENT_SUCCESS, arguments: {
           "booking_id": arguments["booking_id"],
         });
@@ -61,12 +67,16 @@ class LoadingPaymentController extends GetxController {
   void onInit() {
     joinRoomOrder();
 
-    Future.delayed(const Duration(minutes: 1), () {
+    Timer timer = Timer(const Duration(seconds: 10), () {
       Get.offNamed(Routes.PAYMENT_FAILED, arguments: {
-        "booking_id": arguments["booking_id"],
-        "payment_url": arguments["payment_url"],
+        "booking_id": Get.arguments["booking_id"],
+        "payment_url": Get.arguments["payment_url"],
       });
     });
+
+    if (isPaymentSuccess) {
+      timer.cancel();
+    }
 
     super.onInit();
   }
