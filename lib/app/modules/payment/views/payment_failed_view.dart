@@ -5,7 +5,6 @@ import 'package:admin_cafe_mobile/app/modules/payment/controllers/payment_check_
 import 'package:admin_cafe_mobile/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 class PaymentFailedView extends GetView<PaymentCheckController> {
   const PaymentFailedView({Key? key}) : super(key: key);
@@ -220,12 +219,7 @@ class PaymentFailedView extends GetView<PaymentCheckController> {
           ],
         ),
         child: ElevatedButton(
-          onPressed: () async => args['payment_url'] != null
-              ? await launchUrlString(
-                  args['payment_url'],
-                  mode: LaunchMode.externalNonBrowserApplication,
-                )
-              : Get.offAllNamed(Routes.DASHBOARD_USER),
+          onPressed: () => Get.offAllNamed(Routes.DASHBOARD_USER),
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.red,
             padding: const EdgeInsets.symmetric(
@@ -236,7 +230,7 @@ class PaymentFailedView extends GetView<PaymentCheckController> {
             ),
           ),
           child: Text(
-            args['payment_url'] != "" ? "Coba Lagi" : "Kembali ke Beranda",
+            "Kembali ke Beranda",
             style: AppTextStyle.body.copyWith(
               fontSize: 18,
               color: Colors.white,
