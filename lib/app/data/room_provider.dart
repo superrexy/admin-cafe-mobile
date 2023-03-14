@@ -53,6 +53,7 @@ class RoomProvider {
         "kapasitas": request.kapasitas,
         "waktu": request.waktu,
         "harga": request.harga,
+        "quota": request.quota,
         "image": MultipartFile.fromBytes(
           request.image!.readAsBytesSync(),
           filename: fileName,
@@ -89,6 +90,7 @@ class RoomProvider {
           "kapasitas": request.kapasitas,
           "waktu": request.waktu,
           "harga": request.harga,
+          "quota": request.quota,
           "image": MultipartFile.fromFile(
             request.image!.path,
             filename: fileName,
@@ -116,6 +118,7 @@ class RoomProvider {
             "kapasitas": request.kapasitas,
             "waktu": request.waktu,
             "harga": request.harga,
+            "quota": request.quota,
           },
         );
 

@@ -10,6 +10,11 @@ abstract class AppImages {
   static const String icRuangan = 'assets/images/ic_ruangan.png';
   static const String icTransaksi = 'assets/images/ic_transaksi-sidebar.png';
   static const String icBanner = 'assets/images/ic_banner.png';
+  static const String icGopay = 'assets/images/ic_gopay.png';
+  static const String icShopeepay = 'assets/images/ic_shopeepay.png';
+  static const String icDana = 'assets/images/ic_dana.png';
+  static const String icOVO = 'assets/images/ic_ovo.png';
+  static const String icLinkAja = 'assets/images/ic_linkaja.png';
   static const String imgIceCream = 'assets/images/img_icecream.png';
   static const String imgUser = 'assets/images/img_user.png';
   static const String imgRoomMeeting = 'assets/images/img_room_meeting.png';

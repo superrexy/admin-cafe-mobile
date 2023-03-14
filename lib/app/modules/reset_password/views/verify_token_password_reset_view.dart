@@ -1,10 +1,11 @@
+import 'package:flutter/material.dart';
+
+import 'package:get/get.dart';
+
 import 'package:admin_cafe_mobile/app/common/values/app_images.dart';
 import 'package:admin_cafe_mobile/app/common/values/styles/app_text_style.dart';
 import 'package:admin_cafe_mobile/app/modules/reset_password/controllers/verify_token_password_reset_controller.dart';
 import 'package:admin_cafe_mobile/app/modules/widgets/widgets.dart';
-import 'package:flutter/material.dart';
-
-import 'package:get/get.dart';
 
 class VerifyTokenPasswordResetView
     extends GetView<VerifyTokenPasswordResetController> {

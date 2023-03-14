@@ -1,4 +1,3 @@
-import 'package:admin_cafe_mobile/app/modules/dashboard/controllers/dashboard_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -7,6 +6,7 @@ import 'package:admin_cafe_mobile/app/data/data.dart';
 import 'package:admin_cafe_mobile/app/data/room_provider.dart';
 import 'package:admin_cafe_mobile/app/model/response/room_response.dart';
 import 'package:admin_cafe_mobile/app/modules/booking/controllers/form_booking_controller.dart';
+import 'package:admin_cafe_mobile/app/modules/dashboard/controllers/dashboard_controller.dart';
 
 // ignore_for_file: unrelated_type_equality_checks
 

@@ -130,15 +130,31 @@ class RoomView extends GetView<RoomController> {
                             return args?['onSelect'] != null
                                 ? GestureDetector(
                                     onTap: () {
-                                      Get.back(result: {
-                                        'id': room.id,
-                                        'item': room,
-                                      });
+                                      if (room.quota == 0) {
+                                        Get.snackbar(
+                                          "Gagal",
+                                          "Ruangan Penuh",
+                                          backgroundColor: Colors.red,
+                                          colorText: Colors.white,
+                                        );
+                                      } else {
+                                        Get.back(result: {
+                                          'id': room.id,
+                                          'item': room,
+                                        });
+                                      }
                                     },
                                     child: Container(
                                       margin:
                                           const EdgeInsets.only(bottom: 12.0),
                                       padding: const EdgeInsets.all(20.0),
+                                      foregroundDecoration: room.quota == 0
+                                          ? BoxDecoration(
+                                              color: Colors.black26,
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            )
+                                          : null,
                                       decoration: BoxDecoration(
                                         color: AppColors.kPrimaryGreen3,
                                         borderRadius: BorderRadius.circular(10),
@@ -206,6 +222,16 @@ class RoomView extends GetView<RoomController> {
                                           IntrinsicWidth(
                                             child: Text(
                                               "Waktu : ${room.waktu}",
+                                              style: AppTextStyle.body.copyWith(
+                                                color: AppColors.kPrimaryGreen2,
+                                                fontSize: 14,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                          ),
+                                          IntrinsicWidth(
+                                            child: Text(
+                                              "Quota : ${room.quota}",
                                               style: AppTextStyle.body.copyWith(
                                                 color: AppColors.kPrimaryGreen2,
                                                 fontSize: 14,
@@ -374,6 +400,16 @@ class RoomView extends GetView<RoomController> {
                                         IntrinsicWidth(
                                           child: Text(
                                             "Waktu : ${room.waktu}",
+                                            style: AppTextStyle.body.copyWith(
+                                              color: AppColors.kPrimaryGreen2,
+                                              fontSize: 14,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ),
+                                        IntrinsicWidth(
+                                          child: Text(
+                                            "Quota : ${room.quota}",
                                             style: AppTextStyle.body.copyWith(
                                               color: AppColors.kPrimaryGreen2,
                                               fontSize: 14,

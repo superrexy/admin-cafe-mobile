@@ -1,8 +1,8 @@
+import 'dart:convert';
+
 // To parse this JSON data, do
 //
 //     final loginRegisterResponse = loginRegisterResponseFromJson(jsonString);
-
-import 'dart:convert';
 
 LoginRegisterResponse? loginRegisterResponseFromJson(String str) =>
     LoginRegisterResponse.fromJson(json.decode(str));

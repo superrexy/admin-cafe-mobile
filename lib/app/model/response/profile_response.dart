@@ -1,10 +1,10 @@
-// To parse this JSON data, do
-//
-//     final profileResponse = profileResponseFromJson(jsonString);
-
 import 'dart:convert';
 
 import 'package:admin_cafe_mobile/app/common/constants.dart';
+
+// To parse this JSON data, do
+//
+//     final profileResponse = profileResponseFromJson(jsonString);
 
 ProfileResponse? profileResponseFromJson(String str) =>
     ProfileResponse.fromJson(json.decode(str));
@@ -73,7 +73,7 @@ class ProfileData {
         address: json["address"],
         imageProfile: json["image_profile"] == null
             ? null
-            : Constants.baseUrlImage + json["image_profile"],
+            : Constants.baseUrl + json["image_profile"],
         birthDate: json["birth_date"],
         role: json["role"],
         createdAt: DateTime.parse(json["created_at"]),

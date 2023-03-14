@@ -41,17 +41,9 @@ class TransactionController extends GetxController {
     }
   }
 
-  Future<void> paidBooking(BookingData data, int id) async {
+  Future<void> finishBooking(int id) async {
     try {
-      BookingRequest input = BookingRequest(
-        emailPemesan: data.emailPemesan!,
-        namaPemesan: data.namaPemesan!,
-        isPaid: true,
-        tglPemesanan: data.tglPemesanan!,
-        roomId: data.roomId.toString(),
-      );
-
-      final response = await _bookingProvider.updateBooking(input, id);
+      final response = await _bookingProvider.finishBookingByID(id);
       if (response != null) {
         getBookingsData();
         dashboardController.getAllData();

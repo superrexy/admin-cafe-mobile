@@ -64,7 +64,7 @@ class FoodnDrinkData {
         nama: json["nama"],
         harga: json["harga"],
         deskripsi: json["deskripsi"],
-        image: Constants.baseUrlImage + json["image"],
+        image: Constants.baseUrl + json["image"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
       );

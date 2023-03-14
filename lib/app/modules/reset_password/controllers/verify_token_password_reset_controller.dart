@@ -1,9 +1,11 @@
+import 'package:flutter/material.dart';
+
+import 'package:get/get.dart';
+
 import 'package:admin_cafe_mobile/app/data/data.dart';
 import 'package:admin_cafe_mobile/app/model/request/resetpassword_request.dart';
 import 'package:admin_cafe_mobile/app/modules/reset_password/controllers/reset_password_controller.dart';
 import 'package:admin_cafe_mobile/app/routes/app_pages.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class VerifyTokenPasswordResetController extends GetxController {
   // API CLIENT

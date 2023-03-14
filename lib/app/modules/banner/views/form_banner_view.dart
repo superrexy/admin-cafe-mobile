@@ -1,10 +1,12 @@
+import 'package:flutter/material.dart';
+
+import 'package:get/get.dart';
+
 import 'package:admin_cafe_mobile/app/common/values/app_colors.dart';
 import 'package:admin_cafe_mobile/app/common/values/styles/app_text_style.dart';
 import 'package:admin_cafe_mobile/app/modules/banner/controllers/form_banner_controller.dart';
 import 'package:admin_cafe_mobile/app/modules/widgets/form_input_file.dart';
 import 'package:admin_cafe_mobile/app/modules/widgets/widgets.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class FormBannerView extends GetView<FormBannerController> {
   const FormBannerView({Key? key}) : super(key: key);

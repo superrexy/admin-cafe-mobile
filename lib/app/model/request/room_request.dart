@@ -13,6 +13,7 @@ class RoomRequest {
     required this.kapasitas,
     required this.waktu,
     required this.harga,
+    required this.quota,
     this.image,
   });
 
@@ -21,6 +22,7 @@ class RoomRequest {
   String kapasitas;
   String waktu;
   String harga;
+  String quota;
   File? image;
 
   factory RoomRequest.fromJson(Map<String, dynamic> json) => RoomRequest(
@@ -29,6 +31,7 @@ class RoomRequest {
         kapasitas: json["kapasitas"],
         waktu: json["waktu"],
         harga: json["harga"],
+        quota: json["quota"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -37,5 +40,6 @@ class RoomRequest {
         "kapasitas": kapasitas,
         "waktu": waktu,
         "harga": harga,
+        "quota": quota,
       };
 }

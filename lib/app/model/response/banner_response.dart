@@ -47,7 +47,7 @@ class BannerData {
 
   factory BannerData.fromJson(Map<String, dynamic> json) => BannerData(
         id: json["id"],
-        image: Constants.baseUrlImage + json["image"],
+        image: Constants.baseUrl + json["image"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
       );

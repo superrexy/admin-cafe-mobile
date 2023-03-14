@@ -121,6 +121,23 @@ class FormRoomView extends GetView<FormRoomController> {
                       ),
                       const SizedBox(height: 12.0),
                       const FormLabel(
+                        label: "Quota Ruangan",
+                        isRequired: true,
+                      ),
+                      FormInputField(
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return "Quota ruangan tidak boleh kosong";
+                          }
+                          return null;
+                        },
+                        hintText: "Masukkan Quota Ruangan",
+                        controller: controller.roomQuotaController,
+                        textInputAction: TextInputAction.next,
+                        keyboardType: TextInputType.number,
+                      ),
+                      const SizedBox(height: 12.0),
+                      const FormLabel(
                         label: "Harga",
                         isRequired: true,
                       ),

@@ -1,25 +1,35 @@
-import 'package:admin_cafe_mobile/app/routes/app_pages.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+
+import 'package:dio/dio.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/utils.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 import 'package:admin_cafe_mobile/app/common/constants.dart';
 import 'package:admin_cafe_mobile/app/common/storage/storage.dart';
-import 'package:get/get_navigation/get_navigation.dart';
-import 'package:get/utils.dart';
+import 'package:admin_cafe_mobile/app/routes/app_pages.dart';
 
 class ApiClient {
   static Dio init() {
     final Dio dio = Dio();
 
-    dio.options.baseUrl = Constants.baseUrl;
-    dio.options.connectTimeout = 8000;
-    dio.options.receiveTimeout = 8000;
+    dio.options.baseUrl = Constants.baseUrlAPI;
+    dio.options.connectTimeout = const Duration(seconds: 12);
+    dio.options.receiveTimeout = const Duration(seconds: 12);
     dio.options.headers = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
     };
     dio.interceptors.add(ApiInterceptors());
+    dio.interceptors.add(PrettyDioLogger(
+      requestBody: true,
+      responseBody: true,
+      responseHeader: true,
+      error: true,
+      compact: true,
+      maxWidth: 100,
+    ));
     return dio;
   }
 }
@@ -49,14 +59,14 @@ class ApiInterceptors extends Interceptor {
     }
 
     if (response.statusCode == 401) {
-      Get.offNamed(Routes.LOGIN);
-
       Get.snackbar(
         'Sesi Token Habis !',
         'Silahkan login kembali',
         backgroundColor: Colors.red,
         colorText: Colors.white,
       );
+
+      Get.offAllNamed(Routes.LOGIN);
     }
 
     print(
@@ -67,25 +77,6 @@ class ApiInterceptors extends Interceptor {
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) {
     EasyLoading.dismiss();
-
-    // No Internet Connection
-    if (err.type == DioErrorType.connectTimeout) {
-      Get.snackbar(
-        'Tidak ada koneksi internet !',
-        'Silahkan cek koneksi internet anda',
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-      );
-    }
-
-    if (err.type == DioErrorType.sendTimeout) {
-      Get.snackbar(
-        'Tidak ada koneksi internet !',
-        'Silahkan cek koneksi internet anda',
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-      );
-    }
 
     print(
         'ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}');

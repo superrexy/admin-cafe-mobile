@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
+
+import 'package:get/get.dart';
+
 import 'package:admin_cafe_mobile/app/common/values/styles/app_text_style.dart';
 import 'package:admin_cafe_mobile/app/modules/reset_password/controllers/change_password_reset_controller.dart';
 import 'package:admin_cafe_mobile/app/modules/widgets/widgets.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class ChangePasswordResetView extends GetView<ChangePasswordResetController> {
   const ChangePasswordResetView({Key? key}) : super(key: key);
@@ -49,44 +51,66 @@ class ChangePasswordResetView extends GetView<ChangePasswordResetController> {
                   child: Column(
                     children: [
                       const FormLabel(label: "Password Baru"),
-                      FormInputField(
-                        controller: controller.passwordController,
-                        hintText: 'Masukkan Password Baru Anda',
-                        textCapitalization: TextCapitalization.none,
-                        keyboardType: TextInputType.visiblePassword,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Kata Sandi tidak boleh kosong !";
-                          } else if (!GetUtils.isLengthGreaterOrEqual(
-                              value, 8)) {
-                            return "Kata Sandi minimal 8 karakter !";
-                          } else {
-                            return null;
-                          }
-                        },
+                      Obx(
+                        () => FormInputField(
+                          controller: controller.passwordController,
+                          hintText: 'Masukkan Password Baru Anda',
+                          textCapitalization: TextCapitalization.none,
+                          keyboardType: TextInputType.visiblePassword,
+                          suffixIcon: IconButton(
+                            onPressed: () => controller.isPasswordVisible
+                                .value = !controller.isPasswordVisible.value,
+                            icon: !controller.isPasswordVisible.value
+                                ? const Icon(Icons.visibility)
+                                : const Icon(Icons.visibility_off),
+                          ),
+                          obscureText: !controller.isPasswordVisible.value,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Kata Sandi tidak boleh kosong !";
+                            } else if (!GetUtils.isLengthGreaterOrEqual(
+                                value, 8)) {
+                              return "Kata Sandi minimal 8 karakter !";
+                            } else {
+                              return null;
+                            }
+                          },
+                        ),
                       ),
                       const SizedBox(
                         height: 20,
                       ),
                       const FormLabel(label: "Password Baru Konfirmasi"),
-                      FormInputField(
-                        controller: controller.confirmPasswordController,
-                        hintText: 'Masukkan Password Baru Konfirmasi Anda',
-                        textCapitalization: TextCapitalization.none,
-                        keyboardType: TextInputType.visiblePassword,
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Kata Sandi Konfirmasi tidak boleh kosong !";
-                          } else if (!GetUtils.isLengthGreaterOrEqual(
-                              value, 8)) {
-                            return "Kata Sandi Konfirmasi minimal 8 karakter !";
-                          } else if (controller.passwordController.text !=
-                              controller.confirmPasswordController.text) {
-                            return "Kata Sandi Konfirmasi tidak sama !";
-                          } else {
-                            return null;
-                          }
-                        },
+                      Obx(
+                        () => FormInputField(
+                          controller: controller.confirmPasswordController,
+                          hintText: 'Masukkan Password Baru Konfirmasi Anda',
+                          textCapitalization: TextCapitalization.none,
+                          keyboardType: TextInputType.visiblePassword,
+                          suffixIcon: IconButton(
+                            onPressed: () =>
+                                controller.isPasswordConfirmVisible.value =
+                                    !controller.isPasswordConfirmVisible.value,
+                            icon: !controller.isPasswordConfirmVisible.value
+                                ? const Icon(Icons.visibility)
+                                : const Icon(Icons.visibility_off),
+                          ),
+                          obscureText:
+                              !controller.isPasswordConfirmVisible.value,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Kata Sandi Konfirmasi tidak boleh kosong !";
+                            } else if (!GetUtils.isLengthGreaterOrEqual(
+                                value, 8)) {
+                              return "Kata Sandi Konfirmasi minimal 8 karakter !";
+                            } else if (controller.passwordController.text !=
+                                controller.confirmPasswordController.text) {
+                              return "Kata Sandi Konfirmasi tidak sama !";
+                            } else {
+                              return null;
+                            }
+                          },
+                        ),
                       ),
                     ],
                   ),

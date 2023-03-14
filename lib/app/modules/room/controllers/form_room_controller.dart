@@ -24,6 +24,7 @@ class FormRoomController extends GetxController {
   final TextEditingController roomCapacityController = TextEditingController();
   final TextEditingController roomRentHourController = TextEditingController();
   final TextEditingController roomPriceController = TextEditingController();
+  final TextEditingController roomQuotaController = TextEditingController();
 
   // Form Update
   bool isUpdate = false;
@@ -65,6 +66,7 @@ class FormRoomController extends GetxController {
               kapasitas: roomCapacityController.text,
               waktu: roomRentHourController.text,
               harga: roomPriceController.text,
+              quota: roomQuotaController.text,
               image: image,
             ),
             Get.arguments['room_id'],
@@ -86,6 +88,7 @@ class FormRoomController extends GetxController {
               kapasitas: roomCapacityController.text,
               waktu: roomRentHourController.text,
               harga: roomPriceController.text,
+              quota: roomQuotaController.text,
               image: image,
             ),
           );
@@ -119,6 +122,7 @@ class FormRoomController extends GetxController {
       roomCapacityController.text = res.kapasitas;
       roomRentHourController.text = res.waktu;
       roomPriceController.text = res.harga.toString();
+      roomQuotaController.text = res.quota.toString();
       imageUrl = res.image;
       update();
     } catch (e) {

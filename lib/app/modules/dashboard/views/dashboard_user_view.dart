@@ -1,13 +1,15 @@
-import 'package:admin_cafe_mobile/app/common/values/styles/app_text_style.dart';
-import 'package:admin_cafe_mobile/app/modules/dashboard/controllers/dashboard_controller.dart';
 import 'package:flutter/material.dart';
+
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
+import 'package:admin_cafe_mobile/app/common/values/styles/app_text_style.dart';
+import 'package:admin_cafe_mobile/app/modules/dashboard/controllers/dashboard_controller.dart';
+
+import '../../../common/utils/extensions.dart';
 import '../../../common/values/app_colors.dart';
 import '../../../common/values/app_images.dart';
-import '../../../common/utils/extensions.dart';
 import '../../../routes/app_pages.dart';
 import '../../widgets/sidebar.dart';
 
@@ -113,9 +115,8 @@ class DashboardUserView extends GetView<DashboardController> {
                 Obx(
                   () => controller.bookingData.isNotEmpty
                       ? Visibility(
-                          visible: DateTime.now().isBefore(
-                            controller.bookingData.first.tglPemesanan!,
-                          ),
+                          // ignore: unnecessary_null_comparison
+                          visible: controller.findDateBookingNearNow() != null,
                           child: Container(
                             width: Get.width,
                             padding: const EdgeInsets.all(16.0),
@@ -134,8 +135,12 @@ class DashboardUserView extends GetView<DashboardController> {
                                 ),
                                 const SizedBox(height: 4.0),
                                 Text(
-                                  controller.bookingData.first.tglPemesanan!
-                                      .formatDateToString('dd MMMM yyyy'),
+                                  controller.findDateBookingNearNow() != null
+                                      ? controller
+                                          .findDateBookingNearNow()!
+                                          .toLocal()
+                                          .formatDateToString('dd MMMM yyyy')
+                                      : "",
                                   style: AppTextStyle.boldStyle.copyWith(
                                     fontSize: 16.0,
                                     color: AppColors.kPrimaryGreen3,

@@ -88,9 +88,7 @@ class FormBookingView extends GetView<FormBookingController> {
                           DateTime? pickedDate = await showDatePicker(
                             context: context,
                             initialDate: controller.selectedDate,
-                            firstDate: DateTime(
-                              2000,
-                            ),
+                            firstDate: DateTime.now(),
                             lastDate: DateTime(2101),
                           );
 
@@ -182,200 +180,189 @@ class FormBookingView extends GetView<FormBookingController> {
                         },
                       ),
                       const SizedBox(height: 12.0),
-                      Visibility(
-                        visible: controller
-                                .dashboardController.userProfile.value.role ==
-                            "admin",
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const FormLabel(
-                              label: "Pembayaran Lunas",
-                              isRequired: true,
-                            ),
-                            Obx(
-                              () => Switch(
-                                value: controller.isPaid.value,
-                                activeColor: Colors.green,
-                                onChanged: (bool value) {
-                                  controller.isPaid.value = value;
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 12.0),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          FormButton(
-                            type: FormButtonType.warning,
-                            onPressed: () {
-                              controller.calculateTotalPrice();
-                              Get.bottomSheet(
-                                enableDrag: false,
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 8.0, horizontal: 12.0),
-                                  color: Colors.white,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                          Obx(
+                            () => Visibility(
+                              visible: controller.dashboardController
+                                      .userProfile.value.role ==
+                                  "admin",
+                              child: FormButton(
+                                type: FormButtonType.warning,
+                                onPressed: () {
+                                  Get.bottomSheet(
+                                    enableDrag: false,
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 8.0, horizontal: 12.0),
+                                      color: Colors.white,
+                                      child: Column(
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.center,
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          Text(
-                                            "Total Rincian Pesanan",
-                                            style: AppTextStyle.heading1,
-                                            textAlign: TextAlign.start,
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                "Total Rincian Pesanan",
+                                                style: AppTextStyle.heading1,
+                                                textAlign: TextAlign.start,
+                                              ),
+                                              IconButton(
+                                                onPressed: () => Get.back(),
+                                                icon: const Icon(
+                                                  Icons
+                                                      .highlight_remove_outlined,
+                                                  color: Colors.red,
+                                                ),
+                                              )
+                                            ],
                                           ),
-                                          IconButton(
-                                            onPressed: () => Get.back(),
-                                            icon: const Icon(
-                                              Icons.highlight_remove_outlined,
-                                              color: Colors.red,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                      Container(
-                                        margin:
-                                            const EdgeInsets.only(top: 10.0),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text("Ruangan",
-                                                style:
-                                                    AppTextStyle.mediumStyle),
-                                            const SizedBox(
-                                              height: 8,
-                                            ),
-                                            Visibility(
-                                              visible:
-                                                  controller.tempRooms.isEmpty,
-                                              child: Text(
-                                                  "Pilih Ruangan Terlebih Dahulu",
-                                                  style: AppTextStyle
-                                                      .regularStyle),
-                                            ),
-                                            Visibility(
-                                              visible: controller
-                                                  .tempRooms.isNotEmpty,
-                                              child: Column(
-                                                children: controller.tempRooms
-                                                    .map(
-                                                      (e) => Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Text(
-                                                            e.nama,
-                                                            style: AppTextStyle
-                                                                .mediumStyle,
-                                                          ),
-                                                          Text(
-                                                            e.harga
-                                                                .formatCurrencyIDR(),
-                                                            style: AppTextStyle
-                                                                .mediumStyle,
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    )
-                                                    .toList(),
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              height: 16,
-                                            ),
-                                            Text("Makanan & Minuman",
-                                                style:
-                                                    AppTextStyle.mediumStyle),
-                                            const SizedBox(
-                                              height: 8,
-                                            ),
-                                            Visibility(
-                                              visible: controller
-                                                  .tempFoodsChecklist.isEmpty,
-                                              child: Text(
-                                                  "Pilih Makanan & Minuman Terlebih Dahulu",
-                                                  style: AppTextStyle
-                                                      .regularStyle),
-                                            ),
-                                            Visibility(
-                                              visible: controller
-                                                  .tempFoodsChecklist
-                                                  .isNotEmpty,
-                                              child: Column(
-                                                children: controller
-                                                    .tempFoodsChecklist
-                                                    .map(
-                                                      (e) => Container(
-                                                        margin: const EdgeInsets
-                                                            .only(bottom: 6.0),
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          children: [
-                                                            Text(
-                                                              "${e.nama} x ${e.quantity}",
-                                                              style: AppTextStyle
-                                                                  .mediumStyle,
-                                                            ),
-                                                            Text(
-                                                              (e.harga *
-                                                                      e.quantity!)
-                                                                  .formatCurrencyIDR(),
-                                                              style: AppTextStyle
-                                                                  .mediumStyle,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    )
-                                                    .toList(),
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              height: 24,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                          Container(
+                                            margin: const EdgeInsets.only(
+                                                top: 10.0),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
-                                                Text("Total",
+                                                Text("Ruangan",
                                                     style: AppTextStyle
                                                         .mediumStyle),
-                                                Text(
-                                                  controller.totalPrice.value
-                                                      .formatCurrencyIDR(),
-                                                  style:
-                                                      AppTextStyle.mediumStyle,
+                                                const SizedBox(
+                                                  height: 8,
+                                                ),
+                                                Visibility(
+                                                  visible: controller
+                                                      .tempRooms.isEmpty,
+                                                  child: Text(
+                                                      "Pilih Ruangan Terlebih Dahulu",
+                                                      style: AppTextStyle
+                                                          .regularStyle),
+                                                ),
+                                                Visibility(
+                                                  visible: controller
+                                                      .tempRooms.isNotEmpty,
+                                                  child: Column(
+                                                    children:
+                                                        controller.tempRooms
+                                                            .map(
+                                                              (e) => Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                children: [
+                                                                  Text(
+                                                                    e.nama,
+                                                                    style: AppTextStyle
+                                                                        .mediumStyle,
+                                                                  ),
+                                                                  Text(
+                                                                    e.harga
+                                                                        .formatCurrencyIDR(),
+                                                                    style: AppTextStyle
+                                                                        .mediumStyle,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            )
+                                                            .toList(),
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  height: 16,
+                                                ),
+                                                Text("Makanan & Minuman",
+                                                    style: AppTextStyle
+                                                        .mediumStyle),
+                                                const SizedBox(
+                                                  height: 8,
+                                                ),
+                                                Visibility(
+                                                  visible: controller
+                                                      .tempFoodsChecklist
+                                                      .isEmpty,
+                                                  child: Text(
+                                                      "Pilih Makanan & Minuman Terlebih Dahulu",
+                                                      style: AppTextStyle
+                                                          .regularStyle),
+                                                ),
+                                                Visibility(
+                                                  visible: controller
+                                                      .tempFoodsChecklist
+                                                      .isNotEmpty,
+                                                  child: Column(
+                                                    children: controller
+                                                        .tempFoodsChecklist
+                                                        .map(
+                                                          (e) => Container(
+                                                            margin:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    bottom:
+                                                                        6.0),
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                Text(
+                                                                  "${e.nama} x ${e.quantity}",
+                                                                  style: AppTextStyle
+                                                                      .mediumStyle,
+                                                                ),
+                                                                Text(
+                                                                  (e.harga *
+                                                                          e.quantity!)
+                                                                      .formatCurrencyIDR(),
+                                                                  style: AppTextStyle
+                                                                      .mediumStyle,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        )
+                                                        .toList(),
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  height: 24,
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text("Total",
+                                                        style: AppTextStyle
+                                                            .mediumStyle),
+                                                    Text(
+                                                      controller
+                                                          .totalPrice.value
+                                                          .formatCurrencyIDR(),
+                                                      style: AppTextStyle
+                                                          .mediumStyle,
+                                                    ),
+                                                  ],
                                                 ),
                                               ],
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
-                                    ],
+                                    ),
+                                  );
+                                },
+                                child: Text(
+                                  "Tampilkan Rician",
+                                  style: AppTextStyle.mediumStyle.copyWith(
+                                    color: AppColors.kPrimaryGreen2,
                                   ),
                                 ),
-                              );
-                            },
-                            child: Text(
-                              "Tampilkan Rician",
-                              style: AppTextStyle.mediumStyle.copyWith(
-                                color: AppColors.kPrimaryGreen2,
                               ),
                             ),
                           ),

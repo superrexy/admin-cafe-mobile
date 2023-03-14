@@ -19,6 +19,7 @@ class RegisterController extends GetxController {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
+  final isPasswordVisible = false.obs;
 
   @override
   void onInit() {

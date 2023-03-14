@@ -363,7 +363,8 @@ class DashboardView extends GetView<DashboardController> {
                                                       child: Text(
                                                         timeago.format(
                                                             element
-                                                                .tglPemesanan!,
+                                                                .tglPemesanan!
+                                                                .toLocal(),
                                                             locale: 'id'),
                                                         textAlign:
                                                             TextAlign.center,

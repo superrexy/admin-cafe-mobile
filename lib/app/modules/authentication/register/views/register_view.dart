@@ -113,21 +113,31 @@ class RegisterView extends GetView<RegisterController> {
                       label: "Kata Sandi",
                       isRequired: true,
                     ),
-                    FormInputField(
-                      controller: controller.passwordController,
-                      keyboardType: TextInputType.visiblePassword,
-                      textCapitalization: TextCapitalization.none,
-                      textInputAction: TextInputAction.next,
-                      hintText: 'Masukkan Kata Sandi Anda !',
-                      validator: (val) {
-                        if (val!.isEmpty) {
-                          return "Kata Sandi tidak boleh kosong !";
-                        } else if (!GetUtils.isLengthGreaterOrEqual(val, 8)) {
-                          return "Kata Sandi minimal 8 karakter !";
-                        } else {
-                          return null;
-                        }
-                      },
+                    Obx(
+                      () => FormInputField(
+                        controller: controller.passwordController,
+                        keyboardType: TextInputType.visiblePassword,
+                        textCapitalization: TextCapitalization.none,
+                        textInputAction: TextInputAction.next,
+                        hintText: 'Masukkan Kata Sandi Anda !',
+                        suffixIcon: IconButton(
+                          onPressed: () => controller.isPasswordVisible.value =
+                              !controller.isPasswordVisible.value,
+                          icon: !controller.isPasswordVisible.value
+                              ? const Icon(Icons.visibility)
+                              : const Icon(Icons.visibility_off),
+                        ),
+                        obscureText: !controller.isPasswordVisible.value,
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return "Kata Sandi tidak boleh kosong !";
+                          } else if (!GetUtils.isLengthGreaterOrEqual(val, 8)) {
+                            return "Kata Sandi minimal 8 karakter !";
+                          } else {
+                            return null;
+                          }
+                        },
+                      ),
                     ),
                     const SizedBox(
                       height: 20,

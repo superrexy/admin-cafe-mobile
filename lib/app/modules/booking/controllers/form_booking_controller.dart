@@ -1,15 +1,13 @@
-import 'package:flutter/material.dart';
-
-import 'package:get/get.dart';
-
 import 'package:admin_cafe_mobile/app/data/booking_provider.dart';
 import 'package:admin_cafe_mobile/app/data/data.dart';
 import 'package:admin_cafe_mobile/app/model/request/booking_request.dart';
-import 'package:admin_cafe_mobile/app/model/response/booking_response.dart';
 import 'package:admin_cafe_mobile/app/model/response/foodndrink_response.dart';
 import 'package:admin_cafe_mobile/app/model/response/room_response.dart';
 import 'package:admin_cafe_mobile/app/modules/booking/controllers/booking_controller.dart';
 import 'package:admin_cafe_mobile/app/modules/dashboard/controllers/dashboard_controller.dart';
+import 'package:admin_cafe_mobile/app/routes/app_pages.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class FormBookingController extends GetxController {
   // API CLIENT
@@ -34,7 +32,6 @@ class FormBookingController extends GetxController {
   final TextEditingController foodController = TextEditingController();
 
   DateTime selectedDate = DateTime.now();
-  final isPaid = false.obs;
   final foodsOrders = <Foodsndrink>[].obs;
 
   // Total Room & Food Price
@@ -69,42 +66,65 @@ class FormBookingController extends GetxController {
     emailController.text = dashboardController.userProfile.value.email!;
   }
 
-  // Create Booking
+  // To Payment Page
   Future<void> onSubmit() async {
     if (bookingFormKey.currentState!.validate()) {
-      try {
-        for (var element in tempFoodsChecklist) {
-          foodsOrders.add(Foodsndrink(
-            foodDrinkId: element.id,
-            amount: element.quantity!,
-            note: element.note,
-          ));
-        }
-
-        final BookingRequest request = BookingRequest(
-          namaPemesan: nameController.text,
-          emailPemesan: emailController.text,
-          tglPemesanan: DateTime.parse(dateController.text),
-          roomId: tempRooms.first.id.toString(),
-          foodsndrinks: foodsOrders,
-          isPaid: isPaid.value,
-        );
-
-        final BookingData? response =
-            await _bookingProvider.createBooking(request);
-
-        if (response != null) {
-          bookingController.getBookingsData();
-          dashboardController.getAllData();
-          Get.back();
-          Get.snackbar("Success", "Pesanan berhasil ditambahkan",
-              backgroundColor: Colors.green, colorText: Colors.white);
-        }
-      } catch (e) {
-        Get.printError(info: e.toString());
-        Get.snackbar("Terdapat Kesalahan", "Something went wrong",
-            backgroundColor: Colors.red, colorText: Colors.white);
+      if (dashboardController.userProfile.value.role != "admin") {
+        Get.toNamed(Routes.PAYMENT);
+      } else {
+        createBooking(paymentType: "cash");
       }
+    }
+  }
+
+  // Create Booking
+  Future<void> createBooking(
+      {required String paymentType, String? mobileNumber}) async {
+    try {
+      for (var element in tempFoodsChecklist) {
+        foodsOrders.add(Foodsndrink(
+          foodDrinkId: element.id,
+          amount: element.quantity!,
+          note: element.note,
+        ));
+      }
+
+      final BookingRequest request = BookingRequest(
+        namaPemesan: nameController.text,
+        emailPemesan: emailController.text,
+        tglPemesanan: DateTime.parse(dateController.text),
+        roomId: tempRooms.first.id.toString(),
+        foodsndrinks: foodsOrders,
+        paymentType: paymentType,
+        mobileNumber: mobileNumber,
+      );
+
+      final response = await _bookingProvider.createBooking(request);
+
+      if (response != null) {
+        bookingController.getBookingsData();
+        dashboardController.getAllData();
+
+        if (dashboardController.userProfile.value.role == "user") {
+          Get.offNamedUntil(
+              Routes.PAYMENT_LOADING,
+              arguments: {
+                "booking_id": response.id,
+                "payment_url": response.paymentUrl,
+              },
+              (route) => (route as GetPageRoute).routeName == Routes.BOOKING);
+
+          return;
+        }
+
+        Get.back();
+        Get.snackbar("Success", "Pesanan berhasil ditambahkan",
+            backgroundColor: Colors.green, colorText: Colors.white);
+      }
+    } catch (e) {
+      Get.printError(info: e.toString());
+      Get.snackbar("Terdapat Kesalahan", "Something went wrong",
+          backgroundColor: Colors.red, colorText: Colors.white);
     }
   }
 
@@ -115,13 +135,6 @@ class FormBookingController extends GetxController {
 
   @override
   void onReady() {
-    debounce(
-      tempFoodsChecklist,
-      (_) {
-        foodController.text = tempFoodsChecklist.map((e) => e.nama).join(", ");
-      },
-    );
-
     if (dashboardController.userProfile.value.role == "user") {
       formInit();
     }

@@ -1,14 +1,14 @@
+import 'dart:convert';
+
 // To parse this JSON data, do
 //
 //     final bookingResponse = bookingResponseFromJson(jsonString);
 
-import 'dart:convert';
-
-BookingResponse? bookingResponseFromJson(String str) =>
+BookingResponse bookingResponseFromJson(String str) =>
     BookingResponse.fromJson(json.decode(str));
 
-String bookingResponseToJson(BookingResponse? data) =>
-    json.encode(data!.toJson());
+String bookingResponseToJson(BookingResponse data) =>
+    json.encode(data.toJson());
 
 class BookingResponse {
   BookingResponse({
@@ -19,7 +19,7 @@ class BookingResponse {
 
   bool? status;
   String? message;
-  List<BookingData?>? data;
+  List<BookingData>? data;
 
   factory BookingResponse.fromJson(Map<String, dynamic> json) =>
       BookingResponse(
@@ -27,7 +27,7 @@ class BookingResponse {
         message: json["message"],
         data: json["data"] == null
             ? []
-            : List<BookingData?>.from(
+            : List<BookingData>.from(
                 json["data"]!.map((x) => BookingData.fromJson(x))),
       );
 
@@ -36,7 +36,7 @@ class BookingResponse {
         "message": message,
         "data": data == null
             ? []
-            : List<dynamic>.from(data!.map((x) => x!.toJson())),
+            : List<dynamic>.from(data!.map((x) => x.toJson())),
       };
 }
 
@@ -47,13 +47,17 @@ class BookingData {
     this.emailPemesan,
     this.tglPemesanan,
     this.total,
-    this.isPaid,
+    this.isFinished,
     this.roomId,
     this.userId,
+    this.isPaid,
+    this.transactionId,
+    this.paymentType,
     this.createdAt,
     this.updatedAt,
     this.bookingFood,
     this.room,
+    this.paymentUrl,
   });
 
   int? id;
@@ -61,30 +65,45 @@ class BookingData {
   String? emailPemesan;
   DateTime? tglPemesanan;
   int? total;
-  bool? isPaid;
+  bool? isFinished;
   int? roomId;
   int? userId;
+  String? isPaid;
+  String? transactionId;
+  String? paymentType;
   DateTime? createdAt;
   DateTime? updatedAt;
-  List<BookingFood?>? bookingFood;
+  List<BookingFood>? bookingFood;
   Room? room;
+  String? paymentUrl;
 
   factory BookingData.fromJson(Map<String, dynamic> json) => BookingData(
         id: json["id"],
         namaPemesan: json["nama_pemesan"],
         emailPemesan: json["email_pemesan"],
-        tglPemesanan: DateTime.parse(json["tgl_pemesanan"]),
+        tglPemesanan: json["tgl_pemesanan"] == null
+            ? null
+            : DateTime.parse(json["tgl_pemesanan"]),
         total: json["total"],
-        isPaid: json["is_paid"],
+        isFinished: json["is_finished"],
         roomId: json["room_id"],
         userId: json["user_id"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
+        isPaid: json["is_paid"],
+        transactionId: json["transaction_id"],
+        paymentType: json["payment_type"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
         bookingFood: json["booking_food"] == null
             ? []
-            : List<BookingFood?>.from(
+            : List<BookingFood>.from(
                 json["booking_food"]!.map((x) => BookingFood.fromJson(x))),
-        room: Room.fromJson(json["room"]),
+        room: json["room"] == null ? null : Room.fromJson(json["room"]),
+        // ignore: prefer_if_null_operators
+        paymentUrl: json["payment_url"] == null ? null : json["payment_url"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -93,15 +112,19 @@ class BookingData {
         "email_pemesan": emailPemesan,
         "tgl_pemesanan": tglPemesanan?.toIso8601String(),
         "total": total,
-        "is_paid": isPaid,
+        "is_finished": isFinished,
         "room_id": roomId,
         "user_id": userId,
+        "is_paid": isPaid,
+        "transaction_id": transactionId,
+        "payment_type": paymentType,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
         "booking_food": bookingFood == null
             ? []
-            : List<dynamic>.from(bookingFood!.map((x) => x!.toJson())),
-        "room": room!.toJson(),
+            : List<dynamic>.from(bookingFood!.map((x) => x.toJson())),
+        "room": room?.toJson(),
+        "payment_url": paymentUrl,
       };
 }
 
@@ -128,7 +151,9 @@ class BookingFood {
         amount: json["amount"],
         note: json["note"],
         total: json["total"],
-        foodDrink: FoodDrink.fromJson(json["food_drink"]),
+        foodDrink: json["food_drink"] == null
+            ? null
+            : FoodDrink.fromJson(json["food_drink"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -137,7 +162,7 @@ class BookingFood {
         "amount": amount,
         "note": note,
         "total": total,
-        "food_drink": foodDrink!.toJson(),
+        "food_drink": foodDrink?.toJson(),
       };
 }
 
@@ -166,8 +191,12 @@ class FoodDrink {
         harga: json["harga"],
         deskripsi: json["deskripsi"],
         image: json["image"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -190,6 +219,7 @@ class Room {
     this.waktu,
     this.harga,
     this.image,
+    this.quota,
     this.createdAt,
     this.updatedAt,
   });
@@ -201,6 +231,7 @@ class Room {
   String? waktu;
   int? harga;
   String? image;
+  int? quota;
   DateTime? createdAt;
   DateTime? updatedAt;
 
@@ -212,8 +243,13 @@ class Room {
         waktu: json["waktu"],
         harga: json["harga"],
         image: json["image"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
+        quota: json["quota"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -224,6 +260,7 @@ class Room {
         "waktu": waktu,
         "harga": harga,
         "image": image,
+        "quota": quota,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
       };

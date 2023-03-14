@@ -15,6 +15,7 @@ class LoginController extends GetxController {
   final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final isPasswordVisible = false.obs;
 
   void login() async {
     if (loginFormKey.currentState!.validate()) {

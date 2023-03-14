@@ -40,6 +40,7 @@ class RoomData {
     required this.kapasitas,
     required this.waktu,
     required this.harga,
+    required this.quota,
     required this.image,
     required this.createdAt,
     required this.updatedAt,
@@ -51,6 +52,7 @@ class RoomData {
   String kapasitas;
   String waktu;
   int harga;
+  int quota;
   String image;
   DateTime createdAt;
   DateTime updatedAt;
@@ -62,7 +64,8 @@ class RoomData {
         kapasitas: json["kapasitas"],
         waktu: json["waktu"],
         harga: json["harga"],
-        image: Constants.baseUrlImage + json["image"],
+        quota: json["quota"],
+        image: Constants.baseUrl + json["image"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
       );
@@ -74,6 +77,7 @@ class RoomData {
         "kapasitas": kapasitas,
         "waktu": waktu,
         "harga": harga,
+        "quota": quota,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
       };

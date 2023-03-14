@@ -1,4 +1,3 @@
-import 'package:admin_cafe_mobile/app/modules/dashboard/controllers/dashboard_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -7,6 +6,7 @@ import 'package:admin_cafe_mobile/app/data/data.dart';
 import 'package:admin_cafe_mobile/app/data/foodndrink_provider.dart';
 import 'package:admin_cafe_mobile/app/model/response/foodndrink_response.dart';
 import 'package:admin_cafe_mobile/app/modules/booking/controllers/form_booking_controller.dart';
+import 'package:admin_cafe_mobile/app/modules/dashboard/controllers/dashboard_controller.dart';
 
 class FoodndrinkController extends GetxController {
   // FORM BOOKING CONTROLLER
@@ -130,6 +130,10 @@ class FoodndrinkController extends GetxController {
     formBookingController.tempFoodsChecklist.assignAll(
         foodsnDrinks.where((element) => element.isChecked == true).toList());
     Get.back();
+
+    formBookingController.calculateTotalPrice();
+    formBookingController.foodController.text =
+        formBookingController.tempFoodsChecklist.map((e) => e.nama).join(", ");
   }
 
   @override

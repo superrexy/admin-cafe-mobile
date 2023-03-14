@@ -1,8 +1,10 @@
+import 'package:flutter/material.dart';
+
+import 'package:get/get.dart';
+
 import 'package:admin_cafe_mobile/app/data/data.dart';
 import 'package:admin_cafe_mobile/app/model/request/resetpassword_request.dart';
 import 'package:admin_cafe_mobile/app/routes/app_pages.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class ChangePasswordResetController extends GetxController {
   // API CLIENT
@@ -14,6 +16,8 @@ class ChangePasswordResetController extends GetxController {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
+  final isPasswordVisible = false.obs;
+  final isPasswordConfirmVisible = false.obs;
 
   Future<void> onSubmit() async {
     if (changePasswordFormKey.currentState!.validate()) {

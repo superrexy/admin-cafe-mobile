@@ -126,9 +126,9 @@ class CardTransaction extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      item.isPaid! ? 'Lunas' : 'Belum Lunas',
+                      item.isFinished! ? "Selesai" : "Belum Selesai",
                       style: AppTextStyle.mediumStyle.copyWith(
-                        color: item.isPaid!
+                        color: item.isPaid == "SETTLEMENT"
                             ? AppColors.kPrimaryGreen2
                             : Colors.red,
                       ),
@@ -144,28 +144,31 @@ class CardTransaction extends StatelessWidget {
             ),
             child: Row(
               children: [
-                Expanded(
-                  child: GestureDetector(
-                    onTap: onDelete,
-                    child: Container(
-                      padding: EdgeInsets.all(16.0),
-                      decoration: const BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(12.0)),
-                      ),
-                      child: Center(
-                        child: Text(
-                          "Hapus Transaksi",
-                          style: AppTextStyle.regularStyle
-                              .copyWith(color: Colors.white),
+                Visibility(
+                  visible: item.isFinished!,
+                  child: Expanded(
+                    child: GestureDetector(
+                      onTap: onDelete,
+                      child: Container(
+                        padding: EdgeInsets.all(16.0),
+                        decoration: const BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(12.0)),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Hapus Transaksi",
+                            style: AppTextStyle.regularStyle
+                                .copyWith(color: Colors.white),
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ),
                 Visibility(
-                  visible: !item.isPaid!,
+                  visible: !item.isFinished!,
                   child: Expanded(
                     child: GestureDetector(
                       onTap: onDone,

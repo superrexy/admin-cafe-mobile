@@ -20,11 +20,14 @@ class FormInputField extends StatelessWidget {
     this.validator,
     this.contentPadding,
     this.maxLength,
+    this.suffixIcon,
+    this.obscureText,
   }) : super(key: key);
   final TextInputType? keyboardType;
   final TextCapitalization? textCapitalization;
   final TextInputAction? textInputAction;
   final Icon? prefixIcon;
+  final Widget? suffixIcon;
   final String hintText;
   final TextEditingController controller;
   final bool? isTextArea;
@@ -34,6 +37,7 @@ class FormInputField extends StatelessWidget {
   final String? Function(String?)? validator;
   final EdgeInsetsGeometry? contentPadding;
   final int? maxLength;
+  final bool? obscureText;
 
   @override
   Widget build(BuildContext context) {
@@ -51,11 +55,13 @@ class FormInputField extends StatelessWidget {
         onChanged: onChanged,
         validator: validator,
         maxLength: maxLength,
+        obscureText: obscureText ?? false,
         decoration: InputDecoration(
           hintText: hintText,
           filled: true,
           fillColor: Colors.white,
           prefixIcon: prefixIcon,
+          suffixIcon: suffixIcon,
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: AppColors.kGray),
             borderRadius: BorderRadius.circular(6),

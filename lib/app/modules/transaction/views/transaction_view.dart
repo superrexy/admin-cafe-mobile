@@ -47,7 +47,7 @@ class TransactionView extends GetView<TransactionController> {
                             onDelete: () =>
                                 controller.deleteBooking(booking.id!),
                             onDone: () {
-                              controller.paidBooking(booking, booking.id!);
+                              controller.finishBooking(booking.id!);
                             },
                           );
                         },

@@ -5,7 +5,7 @@ import 'package:admin_cafe_mobile/app/common/values/app_colors.dart';
 abstract class AppTextStyle {
   static final TextStyle heading1 = mediumStyle.copyWith(fontSize: 24);
   static final TextStyle heading2 = mediumStyle.copyWith(fontSize: 20);
-  static final TextStyle body = mediumStyle.copyWith(fontSize: 16);
+  static final TextStyle body = regularStyle.copyWith(fontSize: 16);
 
   static final TextStyle lightStyle = _textStyle.copyWith(
     fontWeight: FontWeight.w300,

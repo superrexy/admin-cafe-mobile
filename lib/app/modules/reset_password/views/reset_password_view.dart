@@ -1,9 +1,10 @@
-import 'package:admin_cafe_mobile/app/common/values/app_images.dart';
-import 'package:admin_cafe_mobile/app/common/values/styles/app_text_style.dart';
-import 'package:admin_cafe_mobile/app/modules/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+
+import 'package:admin_cafe_mobile/app/common/values/app_images.dart';
+import 'package:admin_cafe_mobile/app/common/values/styles/app_text_style.dart';
+import 'package:admin_cafe_mobile/app/modules/widgets/widgets.dart';
 
 import '../controllers/reset_password_controller.dart';
 

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1076138065460",
+    "project_id": "qspace-e1348",
+    "storage_bucket": "qspace-e1348.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1076138065460:android:fe0c1b49e234af153c5461",
+        "android_client_info": {
+          "package_name": "com.admincafe.admin_cafe_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1076138065460-git055nrq85t2ngoh36evubknrce3607.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDt6-Kek71voafLIeE2Ei_GgX9cAhVsi2Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1076138065460-git055nrq85t2ngoh36evubknrce3607.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

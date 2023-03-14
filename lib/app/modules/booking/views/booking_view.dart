@@ -124,18 +124,21 @@ class BookingView extends GetView<BookingController> {
                                         children: [
                                           Text(
                                             item.tglPemesanan!
+                                                .toLocal()
                                                 .formatDateToString('yyyy'),
                                             style: AppTextStyle.regularStyle
                                                 .copyWith(fontSize: 10),
                                           ),
                                           Text(
                                             item.tglPemesanan!
+                                                .toLocal()
                                                 .formatDateToString('dd'),
                                             style: AppTextStyle.heading2
                                                 .copyWith(fontSize: 14),
                                           ),
                                           Text(
                                             item.tglPemesanan!
+                                                .toLocal()
                                                 .formatDateToString('MMM'),
                                             style: AppTextStyle.regularStyle
                                                 .copyWith(fontSize: 10),
@@ -209,13 +212,16 @@ class BookingView extends GetView<BookingController> {
                                           ),
                                           FittedBox(
                                             child: Text(
-                                              item.isPaid!
+                                              item.isPaid == "SETTLEMENT"
                                                   ? "Lunas"
-                                                  : "Belum Dibayar",
+                                                  : item.isPaid == "EXPIRE"
+                                                      ? "Pembayaran Kadaluarsa"
+                                                      : "Belum Dibayar",
                                               style: AppTextStyle.boldStyle
                                                   .copyWith(
                                                       fontSize: 12,
-                                                      color: item.isPaid!
+                                                      color: item.isPaid ==
+                                                              "SETTLEMENT"
                                                           ? Colors.green
                                                           : Colors.red),
                                             ),

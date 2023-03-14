@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+
+import 'package:get/get.dart';
+
 import 'package:admin_cafe_mobile/app/data/banner_provider.dart';
 import 'package:admin_cafe_mobile/app/data/booking_provider.dart';
 import 'package:admin_cafe_mobile/app/data/dashboard_provider.dart';
@@ -6,8 +10,6 @@ import 'package:admin_cafe_mobile/app/model/response/banner_response.dart';
 import 'package:admin_cafe_mobile/app/model/response/booking_response.dart';
 import 'package:admin_cafe_mobile/app/model/response/dashboard_response.dart';
 import 'package:admin_cafe_mobile/app/model/response/profile_response.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class DashboardController extends GetxController {
   // API CLIENT
@@ -83,7 +85,7 @@ class DashboardController extends GetxController {
   Future<void> getBookingsByDateData() async {
     try {
       final response =
-          await _bookingProvider.getBookingsByDate(selectedDate.value);
+          await _bookingProvider.getBookingsByDate(selectedDate.value.toUtc());
       if (response != null) {
         bookingData.assignAll(response);
       } else {
@@ -118,6 +120,29 @@ class DashboardController extends GetxController {
     }
   }
 
+  DateTime? findDateBookingNearNow() {
+    try {
+      final booking = bookingData.firstWhere(
+        (element) =>
+            element.tglPemesanan!.toLocal().isAfter(DateTime.now().subtract(
+                  const Duration(days: 1),
+                )) &&
+            element.tglPemesanan!.toLocal().isBefore(
+                  DateTime.now().add(
+                    const Duration(days: 1),
+                  ),
+                ) &&
+            element.isPaid == "SETTLEMENT" &&
+            element.isFinished == false,
+      );
+
+      return booking.tglPemesanan;
+    } catch (e) {
+      Get.printError(info: e.toString());
+    }
+    return null;
+  }
+
   Future<void> getAllData() async {
     getProfileUser();
     await getBannersData();
@@ -132,7 +157,7 @@ class DashboardController extends GetxController {
 
   @override
   void onReady() {
-    getAllData();
+    getAllData().then((value) => print(findDateBookingNearNow()));
     super.onReady();
   }
 

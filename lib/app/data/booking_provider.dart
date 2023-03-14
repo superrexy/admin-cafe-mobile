@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 
 import 'package:admin_cafe_mobile/app/model/request/booking_request.dart';
@@ -36,6 +38,20 @@ class BookingProvider {
   Future<BookingData?> getBookingByID(int bookingId) async {
     try {
       final Response response = await _client.get('/bookings/$bookingId');
+      if (response.statusCode == 200) {
+        return BookingData.fromJson(response.data['data']);
+      }
+
+      return null;
+    } on DioError catch (e) {
+      throw e.response?.data['message'];
+    }
+  }
+
+  Future<BookingData?> finishBookingByID(int bookingId) async {
+    try {
+      final Response response =
+          await _client.get('/bookings/$bookingId/finish-booking');
       if (response.statusCode == 200) {
         return BookingData.fromJson(response.data['data']);
       }

@@ -275,91 +275,108 @@ class FoodndrinkView extends GetView<FoodndrinkController> {
                                     Visibility(
                                       visible: isChecked.value!,
                                       child: Flexible(
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Expanded(
-                                              child: FormInputField(
-                                                contentPadding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 8.0),
-                                                hintText: "Masukkan Catatan",
-                                                controller: _noteController,
-                                                onChanged: (val) {
-                                                  controller.updateCartNote(
-                                                      item, val);
-                                                },
-                                              ),
-                                            ),
-                                            const SizedBox(width: 12.0),
-                                            Expanded(
-                                              child: Container(
-                                                margin: const EdgeInsets.only(
-                                                    top: 4.0),
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          6.0),
-                                                  border: Border.all(
-                                                    color: Colors.grey,
-                                                  ),
+                                        child: Container(
+                                          margin: const EdgeInsets.only(
+                                            top: 12.0,
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Expanded(
+                                                child: FormInputField(
+                                                  contentPadding:
+                                                      const EdgeInsets
+                                                              .symmetric(
+                                                          horizontal: 8.0),
+                                                  hintText: "Masukkan Catatan",
+                                                  controller: _noteController,
+                                                  onChanged: (val) {
+                                                    controller.updateCartNote(
+                                                        item, val);
+                                                  },
                                                 ),
-                                                child: Row(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    IconButton(
-                                                      onPressed: () {
-                                                        if (item.quantity! >
-                                                            1) {
+                                              ),
+                                              const SizedBox(width: 12.0),
+                                              Flexible(
+                                                child: Container(
+                                                  constraints:
+                                                      const BoxConstraints(
+                                                    maxHeight: 50.0,
+                                                  ),
+                                                  margin: const EdgeInsets.only(
+                                                      top: 4.0),
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            6.0),
+                                                    border: Border.all(
+                                                      color: Colors.grey,
+                                                    ),
+                                                  ),
+                                                  child: Row(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      IconButton(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(0),
+                                                        onPressed: () {
+                                                          if (item.quantity! >
+                                                              1) {
+                                                            controller
+                                                                .updateCartQuantity(
+                                                                    item,
+                                                                    item.quantity! -
+                                                                        1);
+                                                          }
+                                                        },
+                                                        icon: const Icon(
+                                                          Icons.remove,
+                                                          color: Colors.red,
+                                                        ),
+                                                      ),
+                                                      Expanded(
+                                                        child: Center(
+                                                          child: Text(
+                                                            item.quantity
+                                                                .toString(),
+                                                            style: AppTextStyle
+                                                                .mediumStyle
+                                                                .copyWith(
+                                                                    fontSize:
+                                                                        16.0),
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      IconButton(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(0),
+                                                        onPressed: () {
                                                           controller
                                                               .updateCartQuantity(
                                                                   item,
-                                                                  item.quantity! -
+                                                                  item.quantity! +
                                                                       1);
-                                                        }
-                                                      },
-                                                      icon: const Icon(
-                                                        Icons.remove,
-                                                        color: Colors.red,
-                                                      ),
-                                                    ),
-                                                    Expanded(
-                                                      child: Center(
-                                                        child: Text(
-                                                          item.quantity
-                                                              .toString(),
-                                                          style: AppTextStyle
-                                                              .mediumStyle
-                                                              .copyWith(
-                                                                  fontSize:
-                                                                      16.0),
-                                                          textAlign:
-                                                              TextAlign.center,
+                                                        },
+                                                        icon: const Icon(
+                                                          Icons.add,
+                                                          color: Colors.green,
                                                         ),
                                                       ),
-                                                    ),
-                                                    IconButton(
-                                                      onPressed: () {
-                                                        controller
-                                                            .updateCartQuantity(
-                                                                item,
-                                                                item.quantity! +
-                                                                    1);
-                                                      },
-                                                      icon: const Icon(
-                                                        Icons.add,
-                                                        color: Colors.green,
-                                                      ),
-                                                    ),
-                                                  ],
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),

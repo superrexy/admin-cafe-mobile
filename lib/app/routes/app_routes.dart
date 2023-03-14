@@ -22,6 +22,11 @@ abstract class Routes {
   static const RESET_PASSWORD = _Paths.RESET_PASSWORD;
   static const RESET_PASSWORD_VERIFY = _Paths.RESET_PASSWORD_VERIFY;
   static const CHANGE_PASSWORD_RESET = _Paths.CHANGE_PASSWORD_RESET;
+  static const PAYMENT = _Paths.PAYMENT;
+  static const PAYMENT_LOADING = _Paths.PAYMENT_LOADING;
+  static const PAYMENT_SUCCESS = _Paths.PAYMENT_SUCCESS;
+  static const PAYMENT_FAILED = _Paths.PAYMENT_FAILED;
+  static const PAYMENT_OVO_MOBILE_PHONE = _Paths.PAYMENT_OVO_MOBILE_PHONE;
 }
 
 abstract class _Paths {
@@ -45,4 +50,9 @@ abstract class _Paths {
   static const RESET_PASSWORD = '/reset-password';
   static const RESET_PASSWORD_VERIFY = '/reset-password/verify';
   static const CHANGE_PASSWORD_RESET = '/reset-password/change-password';
+  static const PAYMENT = '/payment';
+  static const PAYMENT_LOADING = '/payment-loading';
+  static const PAYMENT_SUCCESS = '/payment/success';
+  static const PAYMENT_FAILED = '/payment/failed';
+  static const PAYMENT_OVO_MOBILE_PHONE = '/payment/ovo/mobile-phone';
 }
